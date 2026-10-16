@@ -1394,49 +1394,61 @@ async function signOut() {
 
 // ====== 檢查登入狀態並更新畫面 ======
 async function checkUserSession() {
-  // 檢查網址上是不是帶有錯誤訊息 (Google 登入失敗有時會寫在網址裡)
   if (window.location.hash.includes('error_description')) {
       const errMsg = decodeURIComponent(window.location.hash.match(/error_description=([^&]+)/)[1]);
       alert("⚠️ 登入發生錯誤：" + errMsg.replace(/\+/g, ' '));
-      window.location.hash = ''; // 清除網址上的錯誤
+      window.location.hash = ''; 
       return;
   }
 
   const { data: { session }, error } = await supabaseClient.auth.getSession();
-  
-  if (error) {
-      console.error("獲取 Session 失敗:", error);
-      return;
-  }
+  if (error) return;
 
   const loggedOutSec = document.getElementById('auth-section-logged-out');
   const loggedInSec = document.getElementById('auth-section-logged-in');
 
   if (session && session.user) {
-    // 成功登入，切換畫面並顯示真實資料
     if(loggedOutSec) loggedOutSec.classList.add('hidden');
     if(loggedInSec) loggedInSec.classList.remove('hidden');
     
     const uid = session.user.id;
-    // 將很長的 UUID 縮短顯示
     const shortUid = uid.split('-')[0].toUpperCase() + '....' + uid.slice(-4).toUpperCase();
     
+    // 🛑 核心邏輯：從雲端下載使用者的專屬資料
+    const { data: cloudData, error: fetchError } = await supabaseClient
+      .from('user_data')
+      .select('app_state')
+      .eq('user_id', uid)
+      .single();
+
+    if (cloudData && cloudData.app_state) {
+      // 情況 A：雲端有資料，覆蓋掉目前手機的資料 (換手機登入時會跑這段)
+      window.appState = cloudData.app_state;
+      window.appState.profile.userId = uid;
+      window.appState.profile.email = session.user.email;
+      localStorage.setItem('molife_v15_final', JSON.stringify(window.appState));
+      
+      // 更新畫面
+      try { renderAll(); syncProfileModalUI(); } catch(e){}
+      console.log('已成功載入雲端備份！');
+    } else {
+      // 情況 B：雲端沒資料 (第一次註冊登入)，把現在手機裡的資料傳上去
+      window.appState.profile.userId = uid;
+      window.appState.profile.email = session.user.email;
+      saveState();
+    }
+
     const idEl = document.getElementById('set-user-id');
     const emailEl = document.getElementById('set-user-email');
     if(idEl) idEl.innerText = shortUid;
     if(emailEl) emailEl.innerText = session.user.email;
-    
-    // 存入本地變數
-    window.appState.profile.userId = uid;
-    window.appState.profile.email = session.user.email;
-    saveState();
+
   } else {
     // 尚未登入
     if(loggedOutSec) loggedOutSec.classList.remove('hidden');
     if(loggedInSec) loggedInSec.classList.add('hidden');
   }
 }
-
 // 監聽登入狀態改變 (這個會自動捕捉跳轉回來的瞬間)
 supabaseClient.auth.onAuthStateChange((event, session) => {
   checkUserSession(); 
@@ -1595,7 +1607,25 @@ function openAiConfigModal() {
     if (!pInit.waterSettings) pInit.waterSettings = { unit: "ml", dailyTarget: 2000, cupSize: 250 };
     if (!Array.isArray(pInit.customWeightFields)) pInit.customWeightFields = [];
 
-    window.saveState = () => localStorage.setItem('molife_v15_final', JSON.stringify(window.appState));
+    // 強化版存檔：同時存在手機本地與 Supabase 雲端
+window.saveState = async () => {
+  // 1. 存入手機本地端
+  localStorage.setItem('molife_v15_final', JSON.stringify(window.appState));
+  
+  // 2. 如果有登入，非同步上傳到 Supabase 雲端保險箱
+  const uid = window.appState.profile?.userId;
+  // 排除掉還沒登入時的假 ID
+  if (uid && uid !== "BA52....59D9") {
+    const { error } = await supabaseClient
+      .from('user_data')
+      .upsert({ 
+        user_id: uid, 
+        app_state: window.appState,
+        updated_at: new Date().toISOString()
+      });
+    if (error) console.error('雲端同步失敗:', error.message);
+  }
+};
 
     let detailChart = null, homeChart = null, currentActiveTab = 'dashboard', currentWeightRange = '3M', currentWeightSubTab = 'weight';
     let calendarDate = new Date(), currentDietDate = toLocalDateStr(new Date()), tempWaterUnit = 'ml', waterGoalToastTimer = null;
