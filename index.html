@@ -2159,18 +2159,19 @@ let modalCalendarYear = _today.getFullYear(), modalCalendarMonth = _today.getMon
     }
 
     function selectModalStartDate(dStr) {
-      const curInput = document.getElementById('simple-set-start-date');
-      if (!curInput) return;
-      const prev = curInput.value;
-      const oldCell = document.getElementById(`start-date-cell-${prev}`);
-      if (oldCell) oldCell.className = "py-2 rounded-xl cursor-pointer transition text-slate-600 hover:bg-slate-100";
-      
-      const newCell = document.getElementById(`start-date-cell-${dStr}`);
-      if (newCell) newCell.className = "py-2 rounded-xl cursor-pointer transition bg-[#D67262] text-white font-bold shadow-sm";
-      
-      curInput.value = dStr;
-    }
-
+  // 1. 直接更新 appState 裡的起始日
+  window.appState.profile.startDate = dStr;
+  
+  // 2. 儲存資料並重新整理各個畫面的顯示
+  saveState(); 
+  syncProfileModalUI(); 
+  renderAll(); 
+  
+  // 3. 直接關閉彈窗，流暢又直覺！
+  closeModal('setting-item-modal'); 
+  
+  showToast('起始日已更新');
+}
     function selectModalGender(g) {
       document.getElementById('simple-set-input').value = g;
       ['生理女', '生理男'].forEach(val => {
