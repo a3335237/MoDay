@@ -1522,23 +1522,50 @@ window.addEventListener('load', () => {
   checkUserSession(); // 加入這一行，網頁一打開就會檢查登入狀態
   setTimeout(registerServiceWorkerAndPush, 1000);
 });
-// 註冊 Service Worker 與 PWA 推播
+// 將 base64 字串轉換成推播需要的二進位格式
+function urlBase64ToUint8Array(base64String) {
+  const padding = '='.repeat((4 - base64String.length % 4) % 4);
+  const base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/');
+  const rawData = window.atob(base64);
+  const outputArray = new Uint8Array(rawData.length);
+  for (let i = 0; i < rawData.length; ++i) {
+    outputArray[i] = rawData.charCodeAt(i);
+  }
+  return outputArray;
+}
+
+// 註冊 Service Worker 與 PWA 推播 (升級版)
 async function registerServiceWorkerAndPush() {
   if ('serviceWorker' in navigator && 'PushManager' in window) {
     try {
       const registration = await navigator.serviceWorker.register('sw.js');
-      console.log('Service Worker 註冊成功:', registration);
+      console.log('Service Worker 註冊成功');
 
-      // 請求通知權限
       const permission = await Notification.requestPermission();
       if (permission === 'granted') {
-        showToast('已成功啟用通知權限！');
-        // 註：後續可在此處取得 pushSubscription 並存入 Supabase
-      } else {
-        console.log('使用者未授權通知');
+        
+        // ⚠️ 請把下面這串換成你剛剛在備用網站上產生的 Public Key (公鑰)
+        const publicVapidKey = 'BDcNP4CXZsS4fFC25XO7LvIAuWLUE2fnelu1vWOre7p7bNubgIt6h2L_pskl8KeHgxYezljSUerL5cmY1pjHtX8';
+
+        // 向 Apple/Google 伺服器申請專屬的推播訂閱憑證
+        const subscription = await registration.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
+        });
+
+        // 將手機的推播訂閱寫入 Supabase 資料庫 (如果有登入的話)
+        const userId = window.appState?.profile?.userId;
+        if (userId && userId !== "BA52....59D9") {
+          const { error } = await supabaseClient
+            .from('push_subscriptions') // ⚠️ 我們等一下要去 Supabase 建這個資料表
+            .upsert({ user_id: userId, subscription: subscription });
+            
+          if (error) console.error('推播訂閱寫入失敗:', error.message);
+          else console.log('推播訂閱已成功同步至 Supabase！');
+        }
       }
     } catch (error) {
-      console.error('Service Worker 註冊失敗:', error);
+      console.error('推播註冊發生錯誤:', error);
     }
   }
 }
