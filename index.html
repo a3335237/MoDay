@@ -16,7 +16,7 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    html, body { background-color: #F8F7F5; color: #333333; font-family: 'Noto Sans TC', sans-serif !important; -webkit-tap-highlight-color: transparent; overflow-x: hidden; overflow-anchor: none; }
+    html, body { background-color: #F8F7F5; color: #333333; font-family: 'Noto Sans TC', sans-serif !important; -webkit-tap-highlight-color: transparent; overflow-x: hidden; overflow-anchor: none; padding-top: env(safe-area-inset-top); height: 100vh; overflow-y: auto; -webkit-overflow-scrolling: touch; }
     .brand-coral { background-color: #D67262; }
     .brand-coral-soft { background-color: #F7EAE7; color: #D67262; }
     .text-coral { color: #D67262; }
@@ -63,7 +63,7 @@
   </div>
 
   <!-- 頂部 Header -->
-  <header class="sticky top-0 z-30 bg-[#F8F7F5]/95 backdrop-blur px-4 pt-3 pb-2.5 grid grid-cols-3 items-center max-w-md mx-auto">
+  <header class="sticky top-[env(safe-area-inset-top)] z-50 bg-[#F8F7F5]/95 backdrop-blur-md px-4 pt-3 pb-2.5 grid grid-cols-3 items-center max-w-md mx-auto shadow-sm">
     <div class="flex items-center justify-start">
       <button type="button" onclick="openAiShareModal()" class="px-3 py-1 rounded-full bg-white border border-[#DFB2A9] text-[#C87465] text-xs font-extrabold flex items-center gap-1 shadow-[0_2px_8px_rgba(214,114,98,0.08)] active:scale-95 transition">
         <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 fill-current"><path d="M12 2L14.8 9.2L22 12L14.8 14.8L12 22L9.2 14.8L2 12L9.2 9.2L12 2Z"/></svg>
