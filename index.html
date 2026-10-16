@@ -1370,45 +1370,61 @@ function applyReminderSwitchUI() {
 // 記得在 syncProfileModalUI() 裡面呼叫一次 applyReminderSwitchUI()，這樣打開設定時狀態才會正確同步！
 // 初始化 Supabase 連線
 const SUPABASE_URL = 'https://fpmvqmahsxqnnivvtuss.supabase.co';
-const SUPABASE_ANON_KEY = '你的_Publishable_Key'; // 貼上你的 sb_publishable_... 金鑰
+const SUPABASE_ANON_KEY = 'sb_publishable_t1A50b8_UMDIgKnuWWmnNQ_1_RE0Olx'; // 貼上你的 sb_publishable_... 金鑰
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 // ====== Supabase 登入與登出邏輯 ======
 async function signInWithGoogle() {
   const { data, error } = await supabaseClient.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: 'https://a3335237.github.io/MoDay/'
+      // 這裡會自動抓取你現在的網址，避免斜線少打的問題
+      redirectTo: window.location.origin + window.location.pathname 
     }
   });
-  if (error) alert('登入失敗：' + error.message);
+  if (error) alert('登入跳轉失敗：' + error.message);
 }
+
 async function signOut() {
-  const { error } = await supabaseClient.auth.signOut();
-  if (!error) {
-    window.appState.profile.userId = null;
-    window.appState.profile.email = null;
-    saveState();
-    location.reload(); // 登出後重整畫面
-  }
+  await supabaseClient.auth.signOut();
+  window.appState.profile.userId = null;
+  window.appState.profile.email = null;
+  saveState();
+  location.reload(); // 登出後重整畫面
 }
 
 // ====== 檢查登入狀態並更新畫面 ======
 async function checkUserSession() {
-  const { data: { session } } = await supabaseClient.auth.getSession();
+  // 檢查網址上是不是帶有錯誤訊息 (Google 登入失敗有時會寫在網址裡)
+  if (window.location.hash.includes('error_description')) {
+      const errMsg = decodeURIComponent(window.location.hash.match(/error_description=([^&]+)/)[1]);
+      alert("⚠️ 登入發生錯誤：" + errMsg.replace(/\+/g, ' '));
+      window.location.hash = ''; // 清除網址上的錯誤
+      return;
+  }
+
+  const { data: { session }, error } = await supabaseClient.auth.getSession();
+  
+  if (error) {
+      console.error("獲取 Session 失敗:", error);
+      return;
+  }
+
   const loggedOutSec = document.getElementById('auth-section-logged-out');
   const loggedInSec = document.getElementById('auth-section-logged-in');
 
   if (session && session.user) {
     // 成功登入，切換畫面並顯示真實資料
-    loggedOutSec.classList.add('hidden');
-    loggedInSec.classList.remove('hidden');
+    if(loggedOutSec) loggedOutSec.classList.add('hidden');
+    if(loggedInSec) loggedInSec.classList.remove('hidden');
     
     const uid = session.user.id;
     // 將很長的 UUID 縮短顯示
     const shortUid = uid.split('-')[0].toUpperCase() + '....' + uid.slice(-4).toUpperCase();
     
-    document.getElementById('set-user-id').innerText = shortUid;
-    document.getElementById('set-user-email').innerText = session.user.email;
+    const idEl = document.getElementById('set-user-id');
+    const emailEl = document.getElementById('set-user-email');
+    if(idEl) idEl.innerText = shortUid;
+    if(emailEl) emailEl.innerText = session.user.email;
     
     // 存入本地變數
     window.appState.profile.userId = uid;
@@ -1416,19 +1432,15 @@ async function checkUserSession() {
     saveState();
   } else {
     // 尚未登入
-    loggedOutSec.classList.remove('hidden');
-    loggedInSec.classList.add('hidden');
+    if(loggedOutSec) loggedOutSec.classList.remove('hidden');
+    if(loggedInSec) loggedInSec.classList.add('hidden');
   }
 }
 
-// 監聽登入狀態改變 (例如從 Google 導回網頁時)
+// 監聽登入狀態改變 (這個會自動捕捉跳轉回來的瞬間)
 supabaseClient.auth.onAuthStateChange((event, session) => {
-  if (event === 'SIGNED_IN') {
-    checkUserSession();
-    showToast('登入成功！');
-  }
+  checkUserSession(); 
 });
-
 // 註冊通知並寫入 Supabase 資料庫
 async function registerServiceWorkerAndPush() {
 
