@@ -564,8 +564,8 @@
       <div class="bg-white px-4 py-4 rounded-2xl card-shadow border border-slate-100/80 flex items-baseline justify-between">
         <span class="text-sm font-bold text-slate-700">你目前的 BMI</span>
         <div class="flex items-baseline gap-2">
-          <span id="bmi-modal-val" class="text-2xl font-black text-[#D48C46]">32.2</span>
-          <span id="bmi-modal-detail" class="text-xs text-slate-500 font-mono">102 kg · 178 cm</span>
+          <span id="bmi-modal-val" class="text-2xl font-black text-[#D48C46]">--</span>
+          <span id="bmi-modal-detail" class="text-xs text-slate-500 font-mono">-- kg · -- cm</span>
         </div>
       </div>
       <div class="bg-white p-4 rounded-2xl card-shadow border border-slate-100/80 space-y-3">
@@ -601,8 +601,8 @@
         <div class="flex justify-between text-[11px] text-slate-400 font-mono"><span>40</span><span>95</span><span>150</span></div>
       </div>
       <div class="bg-white px-4 py-3.5 rounded-2xl card-shadow border border-slate-100 flex items-center justify-between">
-        <div><div class="text-sm font-bold text-slate-700">距離目標</div><div class="text-xs text-slate-400 mt-0.5">目前 <span id="modal-target-curr-wt">102</span>kg</div></div>
-        <div class="text-right"><span id="modal-target-diff-wt" class="text-xl font-black text-slate-800">-17</span><span class="text-xs text-slate-400 font-bold ml-0.5">kg</span></div>
+        <div><div class="text-sm font-bold text-slate-700">距離目標</div><div class="text-xs text-slate-400 mt-0.5">目前 <span id="modal-target-curr-wt">--</span>kg</div></div>
+        <div class="text-right"><span id="modal-target-diff-wt" class="text-xl font-black text-slate-800">--</span><span class="text-xs text-slate-400 font-bold ml-0.5">kg</span></div>
       </div>
       <div class="flex gap-3 pt-2">
         <button type="button" onclick="closeModal('target-weight-modal')" class="flex-1 py-3.5 bg-white border border-[#E8D5D1] text-slate-700 rounded-2xl text-sm font-bold active:scale-95 transition">取消</button>
@@ -1124,7 +1124,7 @@
               <span class="font-bold text-slate-800 text-sm">目標</span>
             </div>
             <div class="flex items-center gap-2 text-slate-500 text-sm font-mono">
-              <span id="set-row-target-wt">85 kg</span>
+              <span id="set-row-target-wt">0 kg</span>
               <i class="fa-solid fa-chevron-right text-xs text-slate-300"></i>
             </div>
           </div>
@@ -1138,7 +1138,7 @@
               <span class="font-bold text-slate-800 text-sm">起始日</span>
             </div>
             <div class="flex items-center gap-2 text-slate-500 text-sm relative">
-              <span id="set-row-start-date">2026年10月13日</span>
+              <span id="set-row-start-date">尚未設定</span>
               <i class="fa-solid fa-chevron-right text-xs text-slate-300"></i>
               <input type="date" id="cfg-start-date" onchange="saveQuickStartDate()" class="absolute inset-0 opacity-0 w-full h-full cursor-pointer">
             </div>
@@ -1153,7 +1153,7 @@
               <span class="font-bold text-slate-800 text-sm">身高</span>
             </div>
             <div class="flex items-center gap-2 text-slate-500 text-sm font-mono">
-              <span id="set-row-height">178 cm</span>
+              <span id="set-row-height">0 cm</span>
               <i class="fa-solid fa-chevron-right text-xs text-slate-300"></i>
             </div>
           </div>
@@ -1167,7 +1167,7 @@
               <span class="font-bold text-slate-800 text-sm">性別</span>
             </div>
             <div class="flex items-center gap-2 text-slate-500 text-sm">
-              <span id="set-row-gender">生理男</span>
+              <span id="set-row-gender">尚未設定</span>
               <i class="fa-solid fa-chevron-right text-xs text-slate-300"></i>
             </div>
           </div>
@@ -1181,7 +1181,7 @@
               <span class="font-bold text-slate-800 text-sm">起始體重</span>
             </div>
             <div class="flex items-center gap-2 text-slate-500 text-sm font-mono">
-              <span id="set-row-start-wt">102 kg</span>
+              <span id="set-row-start-wt">0 kg</span>
               <i class="fa-solid fa-chevron-right text-xs text-slate-300"></i>
             </div>
           </div>
@@ -1204,7 +1204,7 @@
               <div id="dark-mode-knob" class="w-5 h-5 rounded-full bg-white shadow-sm transform transition-transform duration-300"></div>
             </div>
           </div>
-<!-- 測試與啟用推播通知按鈕 -->
+          <!-- 啟用推播通知按鈕 -->
           <div onclick="requestNotificationPermissionManually()" class="px-4 py-3.5 flex items-center justify-between cursor-pointer hover:bg-slate-50/70 active:bg-slate-100/60 transition">
             <div class="flex items-center gap-3.5">
               <div class="w-10 h-10 rounded-xl bg-[#FEE2E2] text-[#DC2626] flex items-center justify-center flex-shrink-0">
@@ -1214,7 +1214,7 @@
             </div>
             <div class="text-xs text-coral font-bold">點擊測試</div>
           </div>
-<!-- 立即測試通知按鈕 -->
+          <!-- 立即測試通知按鈕 -->
           <div onclick="sendTestLocalNotification()" class="px-4 py-3.5 flex items-center justify-between cursor-pointer hover:bg-slate-50/70 active:bg-slate-100/60 transition">
             <div class="flex items-center gap-3.5">
               <div class="w-10 h-10 rounded-xl bg-[#FFF7ED] text-[#C2410C] flex items-center justify-center flex-shrink-0">
@@ -1224,7 +1224,7 @@
             </div>
             <div class="text-xs text-orange-600 font-bold">點擊測試</div>
           </div>
-         <!-- 打針提醒 (附帶開關與點擊設定時間) -->
+          <!-- 打針提醒 -->
           <div class="px-4 py-3.5 flex items-center justify-between hover:bg-slate-50/70 active:bg-slate-100/60 transition">
             <div onclick="openSimpleSettingField('reminder')" class="flex items-center gap-3.5 flex-1 cursor-pointer">
               <div class="w-10 h-10 rounded-xl bg-[#EAF4EC] text-[#4E9A5B] flex items-center justify-center flex-shrink-0">
@@ -1235,10 +1235,8 @@
                 <span id="set-row-reminder" class="text-xs text-slate-400 font-mono">每 7 天 · 09:00</span>
               </div>
             </div>
-           
           </div>
-
-          <!-- AI 飲食辨識設定 (改為點擊開啟彈窗) -->
+          <!-- AI 飲食辨識設定 -->
           <div onclick="openAiConfigModal()" class="px-4 py-3.5 flex items-center justify-between cursor-pointer hover:bg-slate-50/75 active:bg-slate-100/60 transition">
             <div class="flex items-center gap-3.5">
               <div class="w-10 h-10 rounded-xl bg-[#F3ECF8] text-[#8456A8] flex items-center justify-center flex-shrink-0">
@@ -1251,16 +1249,18 @@
               <i class="fa-solid fa-chevron-right text-xs text-slate-300"></i>
             </div>
           </div>
+          <!-- 清除所有資料 (已整合進卡片內) -->
+          <div onclick="resetAllData()" class="px-4 py-3.5 flex items-center justify-between cursor-pointer hover:bg-rose-50/70 active:bg-rose-100/60 transition">
+            <div class="flex items-center gap-3.5">
+              <div class="w-10 h-10 rounded-xl bg-[#FEF2F2] text-[#EF4444] flex items-center justify-center flex-shrink-0">
+                <i class="fa-solid fa-trash-can text-base"></i>
+              </div>
+              <span class="font-bold text-[#EF4444] text-sm">清除所有資料 (歸零)</span>
+            </div>
+            <i class="fa-solid fa-chevron-right text-xs text-slate-300"></i>
+          </div>
         </div>
       </div>
-
-      <!-- 資料備份與還原 -->
-      <div class="pt-1 flex gap-2.5">
-        <button type="button" onclick="exportBackup()" class="flex-1 py-3 bg-white border border-slate-200/80 text-slate-600 text-xs font-bold rounded-2xl card-shadow active:scale-95 transition"><i class="fa-solid fa-download mr-1"></i> 匯出備份</button>
-        <button type="button" onclick="document.getElementById('import-file-input').click()" class="flex-1 py-3 bg-white border border-slate-200/80 text-slate-600 text-xs font-bold rounded-2xl card-shadow active:scale-95 transition"><i class="fa-solid fa-upload mr-1"></i> 還原備份</button>
-        <input type="file" id="import-file-input" accept=".json" onchange="importBackup(event)" class="hidden">
-      </div>
-
       <!-- 最下方版本號灰色小字 -->
       <div class="pt-2 pb-1 text-center text-xs text-slate-400 font-medium select-none">
         v1.0 正式版
@@ -1627,10 +1627,10 @@ function openAiConfigModal() {
     const validGeminiModels = ["gemini-3.8-flash", "gemini-3.5-flash-lite", "gemini-3.1-pro"];
     const defaultState = {
       profile: {
-        userId: "BA52....59D9",
-        email: "j4mg9ttwrf@privaterelay.appleid.com",
-        gender: "生理男",
-        height: 178, startWeight: 102, targetWeight: 85, startDate: "2026-10-13", intervalDays: 7, reminderTime: "09:00",
+        userId: "",
+        email: "",
+        gender: "尚未設定",
+        height: 0, startWeight: 0, targetWeight: 0, startDate: "", intervalDays: 7, reminderTime: "09:00",
         darkMode: false,
         geminiApiKey: "", geminiModel: "gemini-3.8-flash",
         dietTargets: { calories: null, protein: null, carbs: null, fiber: null, fat: null },
@@ -1645,10 +1645,7 @@ function openAiConfigModal() {
     })();
     const pInit = window.appState.profile;
     if (!window.appState.diaries) window.appState.diaries = [];
-    if (!pInit.gender) pInit.gender = "生理男";
     if (!pInit.reminderTime) pInit.reminderTime = "09:00";
-    if (!pInit.userId) pInit.userId = "BA52....59D9";
-    if (!pInit.email) pInit.email = "j4mg9ttwrf@privaterelay.appleid.com";
     if (typeof pInit.darkMode !== 'boolean') pInit.darkMode = false;
     if (!pInit.geminiModel || !validGeminiModels.includes(pInit.geminiModel)) pInit.geminiModel = "gemini-3.8-flash";
     if (!pInit.dietTargets) pInit.dietTargets = { calories: null, protein: null, carbs: null, fiber: null, fat: null };
@@ -1773,7 +1770,7 @@ window.saveState = async () => {
 
     const getActiveWeight = () => {
       const w = window.appState.weights || [];
-      return w.length > 0 ? Number(w[0].weight) : Number(window.appState.profile?.startWeight || 102);
+      return w.length > 0 ? Number(w[0].weight) : Number(window.appState.profile?.startWeight || 0);
     };
 
     function getRecommendedDietTargets(customCal = null) {
@@ -1830,7 +1827,7 @@ window.saveState = async () => {
     }
 
     function updateHeaderTitle() {
-      const p = window.appState.profile || {}, days = calcDays(p.startDate || "2026-10-13"), injCount = (window.appState.injections || []).length;
+      const p = window.appState.profile || {}, days = p.startDate ? calcDays(p.startDate) : 0, injCount = (window.appState.injections || []).length;
       const titleEl = $id('header-center-title');
       if (!titleEl) return;
       const map = {
@@ -1876,14 +1873,26 @@ window.saveState = async () => {
 
     function syncProfileModalUI() {
       const p = window.appState.profile || {};
-      $txt('set-user-id', p.userId || "BA52....59D9");
-      $txt('set-user-email', p.email || "j4mg9ttwrf@privaterelay.appleid.com");
-      $txt('set-row-target-wt', `${p.targetWeight || 85} kg`);
-      $txt('set-row-start-date', formatZhDate(p.startDate || "2026-10-13"));
-      if ($id('cfg-start-date')) $id('cfg-start-date').value = p.startDate || "2026-10-13";
-      $txt('set-row-height', `${p.height || 178} cm`);
-      $txt('set-row-gender', p.gender || "生理男");
-      $txt('set-row-start-wt', `${p.startWeight || 102} kg`);
+      $txt('set-user-id', p.userId || "尚未登入");
+      $txt('set-user-email', p.email || "");
+      $txt('set-row-target-wt', `${p.targetWeight || 0} kg`);
+      // 1. 取得當地時間
+const now = new Date();
+const year = now.getFullYear();
+const month = String(now.getMonth() + 1).padStart(2, '0'); // 月份從 0 開始，所以要 +1
+const day = String(now.getDate()).padStart(2, '0');
+
+// 2. 組合出正確的當地今天日期 (例如 "2026-10-17")
+const todayStr = `${year}-${month}-${day}`;
+
+const displayDate = p.startDate ? p.startDate : todayStr;
+
+// 3. 帶入畫面
+$txt('set-row-start-date', formatZhDate(displayDate));
+if ($id('cfg-start-date'))$id('cfg-start-date').value = displayDate;
+      $txt('set-row-height', `${p.height || 0} cm`);
+      $txt('set-row-gender', p.gender || "尚未設定");
+      $txt('set-row-start-wt', `${p.startWeight || 0} kg`);
       $txt('set-row-reminder', `每 ${p.intervalDays || 7} 天 · ${p.reminderTime || '09:00'}`);
       $txt('set-row-ai-status', p.geminiApiKey ? '已設定金鑰' : '設定金鑰');
       if ($id('cfg-gemini-key')) $id('cfg-gemini-key').value = p.geminiApiKey || "";
@@ -1920,7 +1929,7 @@ window.saveState = async () => {
 
       if (field === 'height') {
         $txt('setting-item-modal-title', '身高');
-        let curHeight = p.height || 178;
+        let curHeight = p.height || 160;
         body.innerHTML = `
           <div class="space-y-4 py-2 select-none">
             <div class="relative h-44 bg-[#F8F7F5] rounded-2xl overflow-hidden flex flex-col items-center justify-center border border-slate-100 shadow-inner">
@@ -1943,7 +1952,7 @@ window.saveState = async () => {
         }, 50);
       } else if (field === 'gender') {
         $txt('setting-item-modal-title', '設定性別');
-        const cur = p.gender || '生理男';
+        const cur = p.gender || '尚未設定';
         body.innerHTML = `
           <div class="space-y-3 pt-1">
             <div onclick="selectModalGender('生理女')" id="gender-card-生理女" class="p-4 rounded-2xl border ${cur === '生理女' ? 'border-[#D67262] bg-[#FAF0EE]' : 'border-slate-100 bg-white'} card-shadow flex items-center justify-between cursor-pointer transition">
@@ -2020,7 +2029,7 @@ window.saveState = async () => {
       const p = window.appState.profile || {}, body = $id('setting-item-modal-body');
       if (!body) return;
       $txt('setting-item-modal-title', '修改起始體重');
-      body.innerHTML = `<div class="bg-white px-4 py-3.5 rounded-2xl card-shadow border border-slate-100 flex items-center justify-between"><span class="text-sm font-bold text-slate-700">起始體重</span><div class="flex items-baseline gap-1.5"><input type="number" step="0.1" id="simple-set-input" value="${p.startWeight || 102}" class="w-28 text-right text-lg font-black text-slate-800 border-b border-slate-200 focus:border-[#D67262] outline-none bg-transparent"><span class="text-xs text-slate-400">kg</span></div></div>`;
+      body.innerHTML = `<div class="bg-white px-4 py-3.5 rounded-2xl card-shadow border border-slate-100 flex items-center justify-between"><span class="text-sm font-bold text-slate-700">起始體重</span><div class="flex items-baseline gap-1.5"><input type="number" step="0.1" id="simple-set-input" value="${p.startWeight || 0}" class="w-28 text-right text-lg font-black text-slate-800 border-b border-slate-200 focus:border-[#D67262] outline-none bg-transparent"><span class="text-xs text-slate-400">kg</span></div></div>`;
       openModal('setting-item-modal');
     }
 
@@ -2096,9 +2105,10 @@ window.saveState = async () => {
     }
 
     // 可切換月份並點選日期的起始日互動月曆
-    let modalCalendarYear = 2026, modalCalendarMonth = 9; // 9 = 10月
+    const _today = new Date();
+let modalCalendarYear = _today.getFullYear(), modalCalendarMonth = _today.getMonth();
     function openSettingStartDatePicker() {
-      const p = window.appState.profile || {}, curDate = p.startDate || '2026-10-13';
+      const p = window.appState.profile || {}, curDate = p.startDate || new Date().toISOString().split('T')[0];
       const [y, m] = curDate.split('-').map(Number);
       if (!isNaN(y)) modalCalendarYear = y;
       if (!isNaN(m)) modalCalendarMonth = m - 1;
@@ -2109,7 +2119,7 @@ window.saveState = async () => {
       modalCalendarMonth += delta;
       if (modalCalendarMonth > 11) { modalCalendarMonth = 0; modalCalendarYear++; }
       else if (modalCalendarMonth < 0) { modalCalendarMonth = 11; modalCalendarYear--; }
-      const curDate = document.getElementById('simple-set-start-date')?.value || '2026-10-13';
+      const curDate = document.getElementById('simple-set-start-date')?.value || new Date().toISOString().split('T')[0];
       renderModalCalendar(curDate);
     }
 
@@ -2189,7 +2199,7 @@ window.saveState = async () => {
         if (!v || v <= 0) return alert('請輸入有效身高');
         p.height = v;
       } else if (currentSimpleSettingField === 'gender') {
-        p.gender = $id('simple-set-input')?.value || '生理男';
+        p.gender = $id('simple-set-input')?.value || '尚未設定';
       } else if (currentSimpleSettingField === 'startWeight') {
         const v = parseFloat($id('simple-set-input')?.value);
         if (!v || v <= 0) return alert('請輸入有效起始體重');
@@ -2247,14 +2257,14 @@ window.saveState = async () => {
       const pad2 = n => String(n).padStart(2, '0');
       const timeStr = `${now.getFullYear()}/${pad2(now.getMonth() + 1)}/${pad2(now.getDate())} ${pad2(now.getHours())}:${pad2(now.getMinutes())}`;
 
-      const fmtSlash = s => (s || '2026-10-13').replace(/-/g, '/');
+      const fmtSlash = s => (s || new Date().toISOString().split('T')[0]).replace(/-/g, '/');
       const fmtMD = s => {
         if (!s) return '--/--';
         const parts = s.split('-');
         return parts.length === 3 ? `${pad2(parseInt(parts[1]))}/${pad2(parseInt(parts[2]))}` : s.slice(5).replace('-', '/');
       };
 
-      const startDateStr = p.startDate || "2026-10-13";
+      const startDateStr = p.startDate || new Date().toISOString().split('T')[0];
       let allDates = [startDateStr];
       weights.forEach(w => { if (w.date) allDates.push(w.date); });
       injs.forEach(i => { if (i.date) allDates.push(i.date); });
@@ -2267,9 +2277,9 @@ window.saveState = async () => {
       const rangeDays = Math.max(1, Math.floor((parseLocalDate(maxDateStr).getTime() - parseLocalDate(minDateStr).getTime()) / 86400000) + 1);
       const journeyDays = calcDays(startDateStr);
 
-      const startWt = Number(p.startWeight || 102);
+      const startWt = Number(p.startWeight || 0);
       const currWt = weights.length > 0 ? Number(weights[0].weight) : startWt;
-      const targetWt = Number(p.targetWeight || 85);
+      const targetWt = Number(p.targetWeight || 0);
       const diffNum = currWt - startWt;
       const diffLabel = diffNum < 0 ? `下降 ${Math.abs(diffNum).toFixed(1)} kg` : diffNum > 0 ? `上升 ${diffNum.toFixed(1)} kg` : `持平 0.0 kg`;
       const distTarget = Math.max(0, currWt - targetWt).toFixed(1);
@@ -2304,8 +2314,8 @@ window.saveState = async () => {
         `時間 ${timeStr} | 範圍 ${fmtSlash(minDateStr)}-${fmtSlash(maxDateStr)} (${rangeDays} 天)`,
         "",
         "## 概況",
-        `性別 ${p.gender || '生理男'}`,
-        `身高 ${Number(p.height || 178).toFixed(1)} cm`,
+        `性別 ${p.gender || '尚未設定'}`,
+        `身高 ${Number(p.height || 0).toFixed(1)} cm`,
         `旅程天數 ${journeyDays} 天 (起始 ${fmtSlash(startDateStr)})`,
         `起始體重 ${startWt.toFixed(1)} kg`,
         `目前體重 ${currWt.toFixed(1)} kg (${diffLabel})`,
@@ -2380,7 +2390,7 @@ window.saveState = async () => {
 
     function openBmiInfoModal(evt) {
       if (evt) { evt.stopPropagation(); evt.preventDefault(); }
-      const p = window.appState.profile || {}, currWt = getActiveWeight(), h_cm = p.height || 178, h_m = h_cm / 100;
+      const p = window.appState.profile || {}, currWt = getActiveWeight(), h_cm = p.height || 0, h_m = h_cm / 100;
       $txt('bmi-modal-val', (h_m > 0 && currWt > 0) ? (currWt / (h_m * h_m)).toFixed(1) : '--');
       $txt('bmi-modal-detail', `${currWt} kg · ${h_cm} cm`);
       openModal('bmi-info-modal');
@@ -2388,7 +2398,7 @@ window.saveState = async () => {
 
     // ================= 目標體重彈窗 =================
     function openTargetWeightModal() {
-      const currWt = getActiveWeight(), targetWt = window.appState.profile?.targetWeight || 85;
+      const currWt = getActiveWeight(), targetWt = window.appState.profile?.targetWeight || 60;
       $txt('modal-target-curr-wt', currWt);
       $id('modal-target-wt-input').value = targetWt;
       $id('modal-target-wt-slider').value = Math.min(150, Math.max(40, targetWt));
@@ -2405,7 +2415,7 @@ window.saveState = async () => {
     }
 
     function syncTargetWeightFromSlider() {
-      const val = parseFloat($id('modal-target-wt-slider').value) || 85;
+      const val = parseFloat($id('modal-target-wt-slider').value) || 60;
       $id('modal-target-wt-input').value = val;
       updateTargetWeightSliderLook(val, getActiveWeight());
     }
@@ -3331,8 +3341,8 @@ window.saveState = async () => {
 
     function renderDashboard() {
       const p = window.appState.profile || {}, weights = window.appState.weights || [], injs = window.appState.injections || [], expenses = window.appState.expenses || [], diets = window.appState.diets || [];
-      const startWt = p.startWeight || 102, targetWt = p.targetWeight || 85, currWt = weights.length > 0 ? weights[0].weight : startWt;
-      const h_m = (p.height || 178) / 100;
+      const startWt = p.startWeight || 0, targetWt = p.targetWeight || 0, currWt = weights.length > 0 ? weights[0].weight : startWt;
+      const h_m = (p.height || 0) / 100;
       $txt('home-bmi', (h_m > 0 && currWt > 0) ? (currWt / (h_m * h_m)).toFixed(1) : '--');
       updateHeaderTitle();
       
@@ -3373,7 +3383,7 @@ window.saveState = async () => {
 
     function renderWeights() {
       const p = window.appState.profile || {}, weights = window.appState.weights || [], diaries = window.appState.diaries || [];
-      const startWt = p.startWeight || 102, targetWt = p.targetWeight || 85, currWt = weights.length > 0 ? weights[0].weight : startWt;
+      const startWt = p.startWeight || 0, targetWt = p.targetWeight || 0, currWt = weights.length > 0 ? weights[0].weight : startWt;
       const diff = (startWt - currWt).toFixed(1), totalGoal = startWt - targetWt;
       const progress = totalGoal > 0 ? Math.max(2, Math.min(100, Math.round(((startWt - currWt) / totalGoal) * 100))) : 0;
 
@@ -3598,7 +3608,7 @@ window.saveState = async () => {
         const p = window.appState.profile || {};
         let allWeights = [...(window.appState.weights || [])].reverse();
         let homeWeights = allWeights.slice(-30);
-        if (homeWeights.length === 0) homeWeights = [{ date: p.startDate || '2026-10-13', weight: p.startWeight || 102 }];
+        if (homeWeights.length === 0) homeWeights = [{ date: p.startDate || '', weight: p.startWeight || 0 }];
 
         const homeLabels = homeWeights.map(w => {
           const parts = (w.date || '').split('-');
@@ -3698,6 +3708,40 @@ window.saveState = async () => {
         }
       } catch(e) {}
     }
+    // 清除所有資料（包含本地與雲端）
+async function resetAllData() {
+  // 1. 跳出警告視窗再次確認
+  if (!confirm('⚠️ 警告：確定要清除所有紀錄嗎？\n這將會刪除體重、注射、飲食和帳本的所有資料，且無法復原！')) {
+    return;
+  }
+
+  // 2. 備份目前的登入狀態（避免清空後被登出）
+  const currentUserId = window.appState.profile.userId;
+  const currentEmail = window.appState.profile.email;
+
+  // 3. 將資料強制洗白成預設狀態
+  window.appState = {
+    profile: {
+      userId: currentUserId,
+      email: currentEmail,
+      gender: "尚未設定",
+      height: 0, startWeight: 0, targetWeight: 0, startDate: "", intervalDays: 7, reminderTime: "09:00",
+      darkMode: false,
+      geminiApiKey: "", geminiModel: "gemini-3.8-flash",
+      dietTargets: { calories: null, protein: null, carbs: null, fiber: null, fat: null },
+      waterSettings: { unit: "ml", dailyTarget: 2000, cupSize: 250 },
+      customWeightFields: []
+    },
+    weights: [], injections: [], diets: [], expenses: [], diaries: []
+  };
+
+  // 4. 儲存並覆蓋 Supabase 雲端資料庫
+  await saveState();
+
+  // 5. 提示並重新載入網頁
+  alert('資料已全部清空，將為您重新載入畫面！');
+  location.reload();
+}
   </script>
 </body>
 </html>
