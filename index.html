@@ -467,7 +467,71 @@
   </style>
 
   <!-- ================= 彈窗區塊 ================= -->
+<!-- ================= 新用戶歡迎引導彈窗 (Onboarding) ================= -->
+  <div id="onboarding-modal" class="fixed inset-0 bg-black/50 z-[100] flex items-center justify-center p-4 hidden modal-backdrop-anim">
+    <div class="bg-[#F8F7F5] rounded-[32px] max-w-sm w-full p-6 space-y-4 shadow-2xl modal-sheet-anim relative overflow-hidden">
+      <!-- 右上角關閉按鈕 (允許用戶跳過) -->
+      <button type="button" onclick="closeModal('onboarding-modal')" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#EFECE8] text-slate-500 flex items-center justify-center active:scale-90 transition"><i class="fa-solid fa-xmark text-sm"></i></button>
 
+      <!-- 步驟 1：歡迎與登入 -->
+      <div id="ob-step-1" class="space-y-6">
+        <div class="text-center mt-4">
+          <div class="w-16 h-16 bg-[#D67262] text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl shadow-sm">
+            <i class="fa-solid fa-hand-sparkles"></i>
+          </div>
+          <h3 class="font-black text-slate-800 text-xl tracking-wide">歡迎來到 MoDay！</h3>
+          <p class="text-xs text-slate-500 mt-2 font-medium">讓我們花 10 秒鐘開啟您的專屬健康旅程</p>
+        </div>
+        <div class="space-y-3 pt-2">
+          <button type="button" onclick="signInWithGoogle(); closeModal('onboarding-modal');" class="w-full py-4 bg-white border border-slate-200 text-slate-700 rounded-2xl text-sm font-bold shadow-sm active:scale-95 transition flex items-center justify-center gap-2">
+            <i class="fa-brands fa-google text-[#D67262]"></i> 使用 Google 登入綁定
+          </button>
+          <button type="button" onclick="goToOnboardingStep(2)" class="w-full py-4 bg-[#D67262] text-white rounded-2xl text-sm font-bold shadow-sm active:scale-95 transition">
+            先以訪客身分繼續
+          </button>
+        </div>
+      </div>
+
+     <!-- 步驟 2：基本資料設定 (簡潔輸入版) -->
+      <div id="ob-step-2" class="space-y-4 hidden">
+        <div class="text-center mt-2 mb-4">
+          <h3 class="font-black text-slate-800 text-lg">設定您的起點</h3>
+          <p class="text-[11px] text-slate-500 mt-1 font-medium">完善基礎數據，讓 AI 分析與圖表更精準</p>
+        </div>
+        <div class="space-y-3">
+          <!-- 性別 -->
+          <div class="bg-white px-4 py-3 rounded-2xl card-shadow border border-slate-100 flex justify-between items-center">
+            <span class="text-sm font-bold text-slate-700">性別</span>
+            <div class="flex gap-2">
+              <button type="button" id="ob-gender-F" onclick="setObGender('生理女')" class="px-3 py-1.5 rounded-xl border border-slate-200 text-slate-500 text-xs font-bold transition">生理女</button>
+              <button type="button" id="ob-gender-M" onclick="setObGender('生理男')" class="px-3 py-1.5 rounded-xl border border-slate-200 text-slate-500 text-xs font-bold transition">生理男</button>
+            </div>
+          </div>
+          <!-- 身高 -->
+          <div class="bg-white px-4 py-3.5 rounded-2xl card-shadow border border-slate-100 flex justify-between items-center">
+            <span class="text-sm font-bold text-slate-700">身高 (cm)</span>
+            <input type="number" id="ob-height" placeholder="例: 165" class="w-24 text-right text-lg font-black text-[#D67262] border-b border-slate-100 focus:border-[#D67262] outline-none bg-transparent">
+          </div>
+          <!-- 起始體重 -->
+          <div class="bg-white px-4 py-3.5 rounded-2xl card-shadow border border-slate-100 flex justify-between items-center">
+            <span class="text-sm font-bold text-slate-700">起始體重 (kg)</span>
+            <input type="number" step="0.1" id="ob-weight" placeholder="例: 65.5" class="w-24 text-right text-lg font-black text-[#D67262] border-b border-slate-100 focus:border-[#D67262] outline-none bg-transparent">
+          </div>
+          <!-- 目標體重 -->
+          <div class="bg-white px-4 py-3.5 rounded-2xl card-shadow border border-slate-100 flex justify-between items-center">
+            <span class="text-sm font-bold text-slate-700">目標體重 (kg)</span>
+            <input type="number" step="0.1" id="ob-target" placeholder="例: 50.0" class="w-24 text-right text-lg font-black text-[#D67262] border-b border-slate-100 focus:border-[#D67262] outline-none bg-transparent">
+          </div>
+        </div>
+        
+        <!-- 按鈕區 -->
+        <div class="flex gap-3 pt-3">
+          <button type="button" onclick="goToOnboardingStep(1)" class="w-12 py-3.5 bg-white border border-slate-200 text-slate-500 rounded-2xl text-sm font-bold active:scale-95 transition flex items-center justify-center"><i class="fa-solid fa-arrow-left"></i></button>
+          <button type="button" onclick="finishOnboarding()" class="flex-1 py-3.5 bg-[#D67262] text-white rounded-2xl text-sm font-bold shadow-sm active:scale-95 transition">完成設定，開始旅程 🚀</button>
+        </div>
+      </div>
+    </div> 
+  </div>
   <!-- 0-AI. 分享資料給 AI 分析彈窗 -->
   <div id="ai-share-modal" class="fixed inset-0 bg-black/40 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 hidden modal-backdrop-anim">
     <div class="bg-[#FAF8F6] rounded-t-3xl sm:rounded-3xl max-w-md w-full p-5 pt-3 safe-modal-bottom space-y-4 font-medium max-h-[92vh] overflow-y-auto shadow-2xl modal-sheet-anim">
@@ -1521,6 +1585,7 @@ async function sendTestLocalNotification() {
 window.addEventListener('load', () => {
   checkUserSession(); // 加入這一行，網頁一打開就會檢查登入狀態
   setTimeout(registerServiceWorkerAndPush, 1000);
+  checkNewUserOnboarding();
 });
 // 手動觸發請求推播通知權限
 async function requestNotificationPermissionManually() {
@@ -3743,6 +3808,112 @@ async function resetAllData() {
   alert('資料已全部清空，將為您重新載入畫面！');
   location.reload();
 }
+// ================= 新用戶引導流程 (Onboarding) 簡潔版 =================
+let obSelectedGender = "";
+
+function setObGender(gender) {
+    obSelectedGender = gender;
+    document.getElementById('ob-gender-F').className = gender === '生理女' 
+        ? "px-3 py-1.5 rounded-xl border border-[#D67262] bg-[#FAF0EE] text-[#D67262] text-xs font-bold transition shadow-sm"
+        : "px-3 py-1.5 rounded-xl border border-slate-200 text-slate-500 text-xs font-bold transition";
+    document.getElementById('ob-gender-M').className = gender === '生理男' 
+        ? "px-3 py-1.5 rounded-xl border border-[#D67262] bg-[#FAF0EE] text-[#D67262] text-xs font-bold transition shadow-sm"
+        : "px-3 py-1.5 rounded-xl border border-slate-200 text-slate-500 text-xs font-bold transition";
+}
+
+function goToOnboardingStep(step) {
+    document.getElementById('ob-step-1').classList.add('hidden');
+    document.getElementById('ob-step-2').classList.add('hidden');
+    document.getElementById(`ob-step-${step}`).classList.remove('hidden');
+}
+
+function finishOnboarding() {
+    // 直接抓取輸入框裡的數字
+    const h = parseFloat(document.getElementById('ob-height').value);
+    const w = parseFloat(document.getElementById('ob-weight').value);
+    const t = parseFloat(document.getElementById('ob-target').value);
+    
+    if (!obSelectedGender) {
+        showToast('請先選擇您的性別喔！');
+        return;
+    }
+
+    // 儲存資料
+    window.appState.profile.gender = obSelectedGender;
+    if (h > 0) window.appState.profile.height = h;
+    if (w > 0) window.appState.profile.startWeight = w;
+    if (t > 0) window.appState.profile.targetWeight = t;
+    
+    // 起始日如果沒設定，就抓今天
+    if (!window.appState.profile.startDate || window.appState.profile.startDate === "尚未設定") {
+        const now = new Date();
+        const y = now.getFullYear();
+        const m = String(now.getMonth() + 1).padStart(2, '0');
+        const d = String(now.getDate()).padStart(2, '0');
+        window.appState.profile.startDate = `${y}-${m}-${d}`;
+    }
+    
+    saveState();
+    syncProfileModalUI();
+    renderAll();
+    closeModal('onboarding-modal');
+    showToast('設定完成，準備就緒！🎉');
+}
+
+function checkNewUserOnboarding() {
+    const p = window.appState.profile || {};
+    const hasWeights = (window.appState.weights || []).length > 0;
+    const hasStartWeight = p.startWeight && p.startWeight > 0;
+    
+    if (!hasWeights && !hasStartWeight) {
+        setTimeout(() => {
+            goToOnboardingStep(1);
+            openModal('onboarding-modal');
+        }, 800);
+    }
+}
+
+function checkNewUserOnboarding() {
+    const p = window.appState.profile || {};
+    const hasWeights = (window.appState.weights || []).length > 0;
+    const hasStartWeight = p.startWeight && p.startWeight > 0;
+    if (!hasWeights && !hasStartWeight) {
+        setTimeout(() => { goToOnboardingStep(1); openModal('onboarding-modal'); }, 800);
+    }
+}
+// ================= 電腦版滑鼠拖曳滾動支援 (平滑防抖升級版) =================
+document.addEventListener('mousedown', (e) => {
+  const scrollContainer = e.target.closest('.overflow-y-scroll, .hide-scrollbar');
+  if (!scrollContainer) return;
+
+  let isDown = true;
+  let startY = e.pageY;
+  let scrollTop = scrollContainer.scrollTop;
+
+  // 秘訣 1：滑鼠按住時，暫時關閉 CSS 的自動吸附，讓拖曳如絲般滑順
+  scrollContainer.style.scrollSnapType = 'none';
+
+  const onMouseMove = (moveEvent) => {
+    if (!isDown) return;
+    moveEvent.preventDefault(); 
+    const y = moveEvent.pageY;
+    const walk = (y - startY) * 1.2; // 1.2 是靈敏度，可稍微調高讓滑動更輕鬆
+    scrollContainer.scrollTop = scrollTop - walk;
+  };
+
+  const onMouseUp = () => {
+    isDown = false;
+    
+    // 秘訣 2：放開滑鼠時，立刻加回自動吸附，瀏覽器會自動幫你「彈」到最近的格子上！
+    scrollContainer.style.scrollSnapType = 'y mandatory';
+    
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  };
+
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
+});
   </script>
 </body>
 </html>
