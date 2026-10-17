@@ -30,7 +30,7 @@ body.modal-open-lock {
       --mole-card-bg: #FFFFFF;    /* 卡片背景：純白 */
       --mole-primary: #3E2723;    /* 主標題/重要文字：沉穩深咖啡色 */
       --mole-secondary: #7D5A50;  /* 副標題/說明文字：溫暖柔和棕 */
-      --mole-accent: #D67262;     /* 強調色/按鈕主色：療癒珊瑚橘 */
+      --mole-accent: #8D5B4C;     /* 強調色/按鈕主色：療癒珊瑚橘 */
       --mole-border: #E8DFD8;     /* 邊框線條：柔和淺奶茶邊框 */
       --mole-surface: #F2ECE6;    /* 塊狀底色：溫馨米色區塊 */
     }
@@ -521,10 +521,11 @@ body.modal-open-lock {
           <!-- 中間核心視覺區 -->
           <div class="space-y-6 my-auto">
             <!-- 鼴鼠吃菜可愛大插圖 -->
-            <div class="w-48 h-48 mx-auto flex items-center justify-center">
-              <img src="墨鏡鼴鼠吃生菜.png" alt="歡迎鼴鼠" class="w-full h-full object-contain" onerror="this.style.display='none';this.nextElementSibling.classList.remove('hidden');">
-              <div class="hidden text-xs text-slate-400 font-bold border-2 border-dashed border-slate-200 w-full h-full rounded-3xl flex items-center justify-center">【鼴鼠吃菜插圖】</div>
-            </div>
+<div class="w-56 h-56 mx-auto flex items-center justify-center">
+  <img src="墨鏡鼴鼠吃沙拉.png" alt="鼴鼠吃沙拉" class="w-full h-full object-contain drop-shadow-sm" onerror="this.style.display='none';this.nextElementSibling.classList.remove('hidden');">
+  <!-- 防呆備用虛線框 -->
+  <div class="hidden text-xs text-[#7D5A50] font-bold border-2 border-dashed border-[#E8DFD8] w-full h-full rounded-3xl flex items-center justify-center bg-[#FAF7F2]">【鼴鼠吃菜插圖】</div>
+</div>
 
             <!-- 品牌標題與副標題 (階層、字重、間距與色彩優化) -->
             <div class="space-y-2.5">
@@ -605,70 +606,70 @@ body.modal-open-lock {
               </div>
             </div>
 
-            <!-- 吉祥物/插圖預留位置 -->
-            <div class="w-40 h-40 mx-auto flex items-center justify-center">
-              <img src="墨鏡鼴鼠活力健身秀.png" alt="吉祥物插圖" class="w-full h-full object-contain" onerror="this.style.display='none';this.nextElementSibling.classList.remove('hidden');">
-              <div class="hidden text-xs text-slate-400 font-bold border-2 border-dashed border-slate-200 w-full h-full rounded-2xl flex items-center justify-center">【插圖預留位置】</div>
-            </div>
+            <!-- 吉祥物/插圖預留位置（畫畫鼴鼠） -->
+<div class="w-56 h-56 mx-auto flex items-center justify-center mt-2 mb-3">
+  <img src="戴墨鏡鼴鼠畫畫.png" alt="吉祥物畫畫插圖" class="w-full h-full object-contain drop-shadow-sm" onerror="this.style.display='none';this.nextElementSibling.classList.remove('hidden');">
+  <!-- 防呆備用虛線框 -->
+  <div class="hidden text-xs text-[#7D5A50] font-bold border-2 border-dashed border-[#E8DFD8] w-full h-full rounded-2xl flex items-center justify-center bg-[#FAF7F2]">【吉祥物畫畫插圖】</div>
+</div>
           </div>
 
           <!-- 底部預留空間讓導航列對齊 -->
           <div></div>
         </div>
 
-        <!-- 步驟 4：哪天開始療程的 (高質感三欄式滾輪 - 自動生成版) -->
-        <div id="ob-step-4" class="text-center max-w-sm mx-auto w-full px-4 flex flex-col justify-between h-full py-2">
-          <!-- 上方標題區 -->
-          <div>
+       <!-- 步驟 4：哪天開始療程的 (高質感三欄式滾輪 - 自動生成版) -->
+        <div id="ob-step-4" class="text-center max-w-sm mx-auto w-full px-4 flex flex-col justify-start h-full pt-2 pb-2">
+          <!-- 上方標題區 (固定高度 64px) -->
+          <div class="h-16 flex flex-col justify-center shrink-0">
             <h3 class="font-black text-slate-800 text-2xl tracking-tight">哪天開始療程的，大概就好</h3>
-            <p class="text-xs text-slate-500 font-medium mt-1">之後都可以修改</p>
+            <p class="text-xs text-slate-500 font-medium mt-0.5">之後都可以修改</p>
           </div>
 
           <!-- 中間三欄式滾輪選擇區塊 -->
-          <div class="my-auto space-y-4">
-            <div class="relative h-40 bg-[#F2ECE6]/60 rounded-3xl overflow-hidden flex items-center justify-between px-4 border border-[#E8DFD8] shadow-inner">
+          <div class="mt-4 space-y-4">
+            <div class="relative h-44 bg-[#F2ECE6]/60 rounded-3xl overflow-hidden flex items-center justify-between px-4 border border-[#E8DFD8] shadow-inner">
               <!-- 中間選中的高亮橫條背景 -->
-              <div class="absolute inset-x-3 top-1/2 -translate-y-1/2 h-11 bg-white rounded-2xl pointer-events-none z-0 shadow-sm border border-[#E5D7CD]/60"></div>
+              <div class="absolute inset-x-3 top-1/2 -translate-y-1/2 h-12 bg-white rounded-2xl pointer-events-none z-0 shadow-sm border border-[#E5D7CD]/60"></div>
 
-              <!-- 年份滾輪 (改用精準 padding: 62px 0; 確保最上與最下可以完美置中) -->
-              <div id="ob-wheel-year" class="w-1/3 h-full overflow-y-scroll overflow-x-hidden touch-pan-y snap-y snap-mandatory hide-scrollbar relative z-10 text-center space-y-4" style="padding: 62px 0;" onscroll="handleObDateScroll('year')">
+              <!-- 年份滾輪 -->
+              <div id="ob-wheel-year" class="w-1/3 h-full overflow-y-scroll overflow-x-hidden touch-pan-y snap-y snap-mandatory hide-scrollbar relative z-10 text-center space-y-4" style="padding: 64px 0;" onscroll="handleObDateScroll('year')">
                 <!-- 由 JS 動態產生 -->
               </div>
 
               <!-- 月份滾輪 -->
-              <div id="ob-wheel-month" class="w-1/3 h-full overflow-y-scroll overflow-x-hidden touch-pan-y snap-y snap-mandatory hide-scrollbar relative z-10 text-center space-y-4" style="padding: 62px 0;" onscroll="handleObDateScroll('month')">
+              <div id="ob-wheel-month" class="w-1/3 h-full overflow-y-scroll overflow-x-hidden touch-pan-y snap-y snap-mandatory hide-scrollbar relative z-10 text-center space-y-4" style="padding: 64px 0;" onscroll="handleObDateScroll('month')">
                 <!-- 由 JS 動態產生 -->
               </div>
 
               <!-- 日期滾輪 -->
-              <div id="ob-wheel-day" class="w-1/3 h-full overflow-y-scroll overflow-x-hidden touch-pan-y snap-y snap-mandatory hide-scrollbar relative z-10 text-center space-y-4" style="padding: 62px 0;" onscroll="handleObDateScroll('day')">
+              <div id="ob-wheel-day" class="w-1/3 h-full overflow-y-scroll overflow-x-hidden touch-pan-y snap-y snap-mandatory hide-scrollbar relative z-10 text-center space-y-4" style="padding: 64px 0;" onscroll="handleObDateScroll('day')">
                 <!-- 由 JS 動態產生 -->
               </div>
             </div>
 
             <div class="text-[11px] text-slate-400 font-medium">隨時可在「體重」頁面修改</div>
 
-            <!-- 畫家鼴鼠插圖預留位置 -->
-            <div class="w-32 h-32 mx-auto flex items-center justify-center">
-              <img src="墨鏡鼴鼠活力健身秀.png" alt="畫家插圖" class="w-full h-full object-contain" onerror="this.style.display='none';this.nextElementSibling.classList.remove('hidden');">
-              <div class="hidden text-xs text-slate-400 font-bold border-2 border-dashed border-slate-200 w-full h-full rounded-2xl flex items-center justify-center">【畫家鼴鼠插圖】</div>
+            <!-- 畫家鼴鼠插圖預留位置  -->
+            <div class="w-56 h-56 mx-auto flex items-center justify-center mt-2 mb-2">
+              <img src="戴墨鏡鼴鼠的日記時光.png" alt="日記時光插圖" class="w-full h-full object-contain drop-shadow-sm" onerror="this.style.display='none';this.nextElementSibling.classList.remove('hidden');">
+              <div class="hidden text-xs text-[#7D5A50] font-bold border-2 border-dashed border-[#E8DFD8] w-full h-full rounded-2xl flex items-center justify-center bg-[#FAF7F2]">【畫家鼴鼠插圖】</div>
             </div>
           </div>
 
-          <!-- 底部預留空間讓導航列對齊 -->
           <div></div>
         </div>
 
         <!-- 步驟 5：第一次用藥劑量 (mg) 滾輪版 -->
-        <div id="ob-step-5" class="text-center max-w-sm mx-auto w-full px-4 flex flex-col justify-between h-full py-2 hidden">
-          <!-- 上方標題區 -->
-          <div>
+        <div id="ob-step-5" class="text-center max-w-sm mx-auto w-full px-4 flex flex-col justify-start h-full pt-2 pb-2 hidden">
+          <!-- 上方標題區 (固定高度 64px) -->
+          <div class="h-16 flex flex-col justify-center shrink-0">
             <h3 class="font-black text-slate-800 text-2xl tracking-tight">第一次用藥劑量</h3>
-            <p id="ob-step-5-subtitle" class="text-xs text-slate-500 font-medium mt-1">--年--月--日注射劑量</p>
+            <p id="ob-step-5-subtitle" class="text-xs text-slate-500 font-medium mt-0.5">--年--月--日注射劑量</p>
           </div>
 
           <!-- 中間單欄劑量滾輪區塊 -->
-          <div class="my-auto space-y-4">
+          <div class="mt-4 space-y-4">
             <div class="relative h-44 bg-[#F2ECE6]/60 rounded-3xl overflow-hidden flex items-center justify-center px-4 border border-[#E8DFD8] shadow-inner w-56 mx-auto">
               <!-- 中間選中的高亮橫條背景 -->
               <div class="absolute inset-x-4 top-1/2 -translate-y-1/2 h-12 bg-white rounded-2xl pointer-events-none z-0 shadow-sm border border-[#E5D7CD]/60"></div>
@@ -676,48 +677,46 @@ body.modal-open-lock {
               <!-- 固定的 mg 單位 -->
               <div class="absolute right-10 top-1/2 -translate-y-1/2 font-black text-slate-700 text-lg pointer-events-none z-20">mg</div>
 
-              <!-- 劑量滾輪 (利用 JS 塞入 0.25 ~ 15.0 的數值) -->
-              <div id="ob-wheel-dose" class="w-full h-full overflow-y-scroll overflow-x-hidden touch-pan-y snap-y snap-mandatory hide-scrollbar relative z-10 text-center space-y-4 pr-8" style="padding: 70px 0;" onscroll="handleObDoseScroll()">
+              <!-- 劑量滾輪 -->
+              <div id="ob-wheel-dose" class="w-full h-full overflow-y-scroll overflow-x-hidden touch-pan-y snap-y snap-mandatory hide-scrollbar relative z-10 text-center space-y-4 pr-8" style="padding: 64px 0;" onscroll="handleObDoseScroll()">
                 <!-- 由 JS 動態產生 -->
               </div>
             </div>
 
             <div class="text-[11px] text-slate-400 font-medium">可在「注射」頁修改</div>
 
-            <!-- 畫家鼴鼠插圖預留位置 (對應伸展動作) -->
-            <div class="w-32 h-32 mx-auto flex items-center justify-center">
-              <img src="墨鏡鼴鼠活力健身秀.png" alt="健身插圖" class="w-full h-full object-contain" onerror="this.style.display='none';this.nextElementSibling.classList.remove('hidden');">
-              <div class="hidden text-xs text-slate-400 font-bold border-2 border-dashed border-slate-200 w-full h-full rounded-2xl flex items-center justify-center">【伸展鼴鼠插圖】</div>
+            <!-- 畫家鼴鼠插圖預留位置 (統一為 w-48 h-48) -->
+            <div class="w-48 h-48 mx-auto flex items-center justify-center mt-2 mb-2">
+              <img src="墨鏡鼴鼠打針.png" alt="墨鏡鼴鼠打針" class="w-full h-full object-contain" onerror="this.style.display='none';this.nextElementSibling.classList.remove('hidden');">
+              <div class="hidden text-xs text-[#7D5A50] font-bold border-2 border-dashed border-[#E8DFD8] w-full h-full rounded-2xl flex items-center justify-center bg-[#FAF7F2]">【墨鏡鼴鼠打針】</div>
             </div>
           </div>
 
-          <!-- 底部預留空間讓導航列對齊 -->
           <div></div>
         </div>
 
         <!-- 步驟 6：當天的體重 (kg, 0.1 單位) 滾輪版 -->
-        <div id="ob-step-6" class="text-center max-w-sm mx-auto w-full px-4 flex flex-col justify-between h-full py-2 hidden">
-          <div>
+        <div id="ob-step-6" class="text-center max-w-sm mx-auto w-full px-4 flex flex-col justify-start h-full pt-2 pb-2 hidden">
+          <div class="h-16 flex flex-col justify-center shrink-0">
             <h3 class="font-black text-slate-800 text-2xl tracking-tight"><span id="ob-step-6-subtitle">--月--日</span>那天的體重</h3>
-            <p class="text-xs text-slate-500 font-medium mt-1">大概就好</p>
+            <p class="text-xs text-slate-500 font-medium mt-0.5">大概就好</p>
           </div>
 
-          <div class="my-auto space-y-4">
+          <div class="mt-4 space-y-4">
             <div class="relative h-44 bg-[#F2ECE6]/60 rounded-3xl overflow-hidden flex items-center justify-center px-4 border border-[#E8DFD8] shadow-inner w-56 mx-auto">
               <div class="absolute inset-x-4 top-1/2 -translate-y-1/2 h-12 bg-white rounded-2xl pointer-events-none z-0 shadow-sm border border-[#E5D7CD]/60"></div>
               
-              <!-- 💡 單位往右靠邊 (right-8) -->
               <div class="absolute right-8 top-1/2 -translate-y-1/2 font-black text-[#D67262] text-lg pointer-events-none z-20">kg</div>
 
-              <!-- 💡 滾輪內容往左推 (pr-10) 避免撞到單位 -->
-              <div id="ob-wheel-weight" class="w-full h-full overflow-y-scroll overflow-x-hidden touch-pan-y snap-y snap-mandatory hide-scrollbar relative z-10 text-center space-y-4 pr-10" style="padding: 70px 0;" onscroll="handleObWeightScroll()">
+              <div id="ob-wheel-weight" class="w-full h-full overflow-y-scroll overflow-x-hidden touch-pan-y snap-y snap-mandatory hide-scrollbar relative z-10 text-center space-y-4 pr-10" style="padding: 64px 0;" onscroll="handleObWeightScroll()">
                 <!-- 由 JS 動態產生 -->
               </div>
             </div>
 
             <div class="text-[11px] text-slate-400 font-medium">隨時可在「體重」頁修改</div>
 
-            <div class="w-32 h-32 mx-auto flex items-center justify-center mt-2">
+            <!-- 插圖預留位置 (統一為 w-48 h-48) -->
+            <div class="w-48 h-48 mx-auto flex items-center justify-center mt-2 mb-2">
               <img src="墨鏡鼴鼠站上體重計.png" alt="體重計插圖" class="w-full h-full object-contain" onerror="this.style.display='none';this.nextElementSibling.classList.remove('hidden');">
             </div>
           </div>
@@ -725,63 +724,62 @@ body.modal-open-lock {
         </div>
 
         <!-- 步驟 7：您的身高是 (cm, 0.1 單位) 滾輪版 -->
-        <div id="ob-step-7" class="text-center max-w-sm mx-auto w-full px-4 flex flex-col justify-between h-full py-2 hidden">
-          <div>
+        <div id="ob-step-7" class="text-center max-w-sm mx-auto w-full px-4 flex flex-col justify-start h-full pt-2 pb-2 hidden">
+          <div class="h-16 flex flex-col justify-center shrink-0">
             <h3 class="font-black text-slate-800 text-2xl tracking-tight">你的身高是</h3>
-            <p class="text-xs text-slate-500 font-medium mt-1">讓 MoDay 計算 BMI 和理想體重</p>
+            <p class="text-xs text-slate-500 font-medium mt-0.5">讓 MoDay 計算 BMI 和理想體重</p>
           </div>
 
-          <div class="my-auto space-y-4">
+          <div class="mt-4 space-y-4">
             <div class="relative h-44 bg-[#F2ECE6]/60 rounded-3xl overflow-hidden flex items-center justify-center px-4 border border-[#E8DFD8] shadow-inner w-56 mx-auto">
               <div class="absolute inset-x-4 top-1/2 -translate-y-1/2 h-12 bg-white rounded-2xl pointer-events-none z-0 shadow-sm border border-[#E5D7CD]/60"></div>
               
               <div class="absolute right-8 top-1/2 -translate-y-1/2 font-black text-[#D67262] text-lg pointer-events-none z-20">cm</div>
 
-              <div id="ob-wheel-height" class="w-full h-full overflow-y-scroll overflow-x-hidden touch-pan-y snap-y snap-mandatory hide-scrollbar relative z-10 text-center space-y-4 pr-10" style="padding: 70px 0;" onscroll="handleObHeightScroll()">
+              <div id="ob-wheel-height" class="w-full h-full overflow-y-scroll overflow-x-hidden touch-pan-y snap-y snap-mandatory hide-scrollbar relative z-10 text-center space-y-4 pr-10" style="padding: 64px 0;" onscroll="handleObHeightScroll()">
                 <!-- 由 JS 動態產生 -->
               </div>
             </div>
 
             <div class="text-[11px] text-slate-400 font-medium">可在「設定」頁面更新</div>
 
-            <div class="w-32 h-32 mx-auto flex items-center justify-center mt-2">
-              <img src="墨鏡鼴鼠量身高.png" alt="身高插圖" class="w-full h-full object-contain" onerror="this.style.display='none';this.nextElementSibling.classList.remove('hidden');">
-              <!-- 💡 補回這裡的虛線圖格 -->
-              <div class="hidden text-xs text-slate-400 font-bold border-2 border-dashed border-slate-200 w-full h-full rounded-2xl flex items-center justify-center">【長頸鹿插圖】</div>
+            <!-- 插圖預留位置 (統一為 w-48 h-48) -->
+            <div class="w-48 h-48 mx-auto flex items-center justify-center mt-2 mb-2">
+              <img src="墨鏡鼴鼠量身高.png" alt="身高插圖" class="w-full h-full object-contain drop-shadow-sm" onerror="this.style.display='none';this.nextElementSibling.classList.remove('hidden');">
+              <div class="hidden text-xs text-[#7D5A50] font-bold border-2 border-dashed border-[#E8DFD8] w-full h-full rounded-2xl flex items-center justify-center bg-[#FAF7F2]">【長頸鹿插圖】</div>
             </div>
           </div>
           <div></div>
         </div>
 
         <!-- 步驟 8：您的目標體重 (kg, 0.5 單位) 滾輪版 -->
-        <div id="ob-step-8" class="text-center max-w-sm mx-auto w-full px-4 flex flex-col justify-between h-full py-2 hidden">
-          <div>
+        <div id="ob-step-8" class="text-center max-w-sm mx-auto w-full px-4 flex flex-col justify-start h-full pt-2 pb-2 hidden">
+          <div class="h-16 flex flex-col justify-center shrink-0">
             <h3 class="font-black text-slate-800 text-2xl tracking-tight">你的目標體重</h3>
-            <p class="text-xs text-slate-500 font-medium mt-1">Molife 陪你一起達成</p>
+            <p class="text-xs text-slate-500 font-medium mt-0.5">Molife 陪你一起達成</p>
           </div>
 
-          <div class="my-auto space-y-4">
+          <div class="mt-4 space-y-4">
             <div class="relative h-44 bg-[#F2ECE6]/60 rounded-3xl overflow-hidden flex items-center justify-center px-4 border border-[#E8DFD8] shadow-inner w-56 mx-auto">
               <div class="absolute inset-x-4 top-1/2 -translate-y-1/2 h-12 bg-white rounded-2xl pointer-events-none z-0 shadow-sm border border-[#E5D7CD]/60"></div>
               
               <div class="absolute right-8 top-1/2 -translate-y-1/2 font-black text-[#D67262] text-lg pointer-events-none z-20">kg</div>
 
-              <div id="ob-wheel-target" class="w-full h-full overflow-y-scroll overflow-x-hidden touch-pan-y snap-y snap-mandatory hide-scrollbar relative z-10 text-center space-y-4 pr-10" style="padding: 70px 0;" onscroll="handleObTargetScroll()">
+              <div id="ob-wheel-target" class="w-full h-full overflow-y-scroll overflow-x-hidden touch-pan-y snap-y snap-mandatory hide-scrollbar relative z-10 text-center space-y-4 pr-10" style="padding: 64px 0;" onscroll="handleObTargetScroll()">
                 <!-- 由 JS 動態產生 -->
               </div>
             </div>
 
             <div class="text-[11px] text-slate-400 font-medium">可在「體重」頁面更新</div>
 
-            <div class="w-32 h-32 mx-auto flex items-center justify-center mt-2">
-              <img src="墨鏡鼴鼠度假.png" alt="度假插圖" class="w-full h-full object-contain" onerror="this.style.display='none';this.nextElementSibling.classList.remove('hidden');">
-              <!-- 💡 補回這裡的虛線圖格 -->
-              <div class="hidden text-xs text-slate-400 font-bold border-2 border-dashed border-slate-200 w-full h-full rounded-2xl flex items-center justify-center">【海灘鼴鼠插圖】</div>
+            <!-- 插圖預留位置 (統一為 w-48 h-48) -->
+            <div class="w-48 h-48 mx-auto flex items-center justify-center mt-2 mb-2">
+              <img src="戴墨鏡鼴鼠的日光浴.png" alt="目標體重插圖" class="w-full h-full object-contain drop-shadow-sm" onerror="this.style.display='none';this.nextElementSibling.classList.remove('hidden');">
+              <div class="hidden text-xs text-[#7D5A50] font-bold border-2 border-dashed border-[#E8DFD8] w-full h-full rounded-2xl flex items-center justify-center bg-[#FAF7F2]">【海灘鼴鼠插圖】</div>
             </div>
           </div>
           <div></div>
         </div>
-
         <!-- 步驟 9：使用 Google 登入 (獨立的最後一頁) -->
         <div id="ob-step-9" class="text-center max-w-sm mx-auto w-full px-4 flex flex-col justify-between h-full py-2 hidden">
           <!-- 上方標題與按鈕區 -->
@@ -804,11 +802,12 @@ body.modal-open-lock {
             </div>
           </div>
 
-          <!-- 畫家鼴鼠插圖預留位置 (登山客) -->
-          <div class="w-64 h-64 mx-auto flex items-end justify-center mb-6">
-            <img src="墨鏡鼴鼠登山客.png" alt="登山插圖" class="w-full h-full object-contain" onerror="this.style.display='none';this.nextElementSibling.classList.remove('hidden');">
-            <div class="hidden text-xs text-slate-400 font-bold border-2 border-dashed border-slate-200 w-full h-full rounded-2xl flex items-center justify-center">【登山鼴鼠插圖】</div>
-          </div>
+          <!-- 畫家鼴鼠插圖預留位置（運動/跑步客） -->
+<div class="w-64 h-64 mx-auto flex items-end justify-center mb-6">
+  <img src="酷鼴鼠跑步.png" alt="跑步運動插圖" class="w-full h-full object-contain drop-shadow-sm" onerror="this.style.display='none';this.nextElementSibling.classList.remove('hidden');">
+  <!-- 防呆備用虛線框 -->
+  <div class="hidden text-xs text-[#7D5A50] font-bold border-2 border-dashed border-[#E8DFD8] w-full h-full rounded-2xl flex items-center justify-center bg-[#FAF7F2]">【運動鼴鼠插圖】</div>
+</div>
         </div>
 
       </div> 
@@ -846,7 +845,7 @@ body.modal-open-lock {
           </div>
         </div>
 
-        <img src="墨鏡鼴鼠站上體重計.png" alt="墨鏡鼴鼠站上體重計" class="w-28 h-24 object-contain absolute right-1 bottom-0.5 pointer-events-none select-none z-0 rounded-xl" onerror="this.style.display='none';this.nextElementSibling.classList.remove('hidden');">
+        <img src="戴墨鏡鼴鼠看書.png" alt="戴墨鏡鼴鼠看書.png" class="w-28 h-28 object-contain absolute right-1 bottom-0.5 pointer-events-none select-none z-0 rounded-xl" onerror="this.style.display='none';this.nextElementSibling.classList.remove('hidden');">
         <svg viewBox="0 0 130 98" class="hidden w-32 h-24 absolute right-1 bottom-0 pointer-events-none select-none z-0">
           <polygon points="36,74 104,74 112,92 28,92" fill="#FFFFFF" stroke="#4A3228" stroke-width="1.5" stroke-linejoin="round"/>
           <polygon points="40,76 100,76 106,88 34,88" fill="#B6D7F2"/>
@@ -4542,7 +4541,7 @@ window.handleObTargetScroll = function() {
         }
     }, 50);
 };
-// ================= 完美的底部彈窗下滑手勢與背景鎖定 =================
+// ================= 完美的底部彈窗下滑手勢與狀態修復 =================
 document.addEventListener('DOMContentLoaded', () => {
   const modalBackdrops = document.querySelectorAll('.modal-backdrop-anim');
   
@@ -4555,6 +4554,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let isDragging = false;
 
     sheet.addEventListener('touchstart', (e) => {
+      // 只有當捲軸在最頂端時，才允許下拉手勢
       if (sheet.scrollTop <= 0) {
         startY = e.touches[0].clientY;
         isDragging = true;
@@ -4568,8 +4568,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const diffY = currentY - startY;
       
       if (diffY > 0) {
-        // 💡 關鍵：強制阻止瀏覽器預設滾動，徹底鎖死背景！
-        e.preventDefault();
+        // 💡 阻止事件冒泡，絕對不讓背景跟著滑動！
+        e.stopPropagation();
         sheet.style.transform = `translate3d(0, ${diffY}px, 0)`;
       }
     }, { passive: false });
@@ -4581,21 +4581,21 @@ document.addEventListener('DOMContentLoaded', () => {
       
       const diffY = currentY - startY;
       if (diffY > 100) {
+        // 下拉超過 100px，關閉彈窗
         const modalId = backdrop.getAttribute('id');
         if (modalId) closeModal(modalId);
       } else {
+        // 彈回原位
         sheet.style.transform = 'translate3d(0, 0, 0)';
       }
     });
   });
 });
 
-// 💡 每次打開彈窗時，自動幫 body 加上鎖定，並重置動畫位置
+// 💡 確保每次呼叫 openModal 時，強制把彈窗的 transform 歸零，解決「下次打開卡在下面」的問題
 const originalOpenModal = window.openModal;
 window.openModal = function(id) {
   if (originalOpenModal) originalOpenModal(id);
-  document.body.classList.add('modal-open-lock');
-  
   const el = document.getElementById(id);
   if (el) {
     const sheet = el.querySelector('.modal-sheet-anim');
@@ -4609,7 +4609,7 @@ window.openModal = function(id) {
   }
 };
 
-// 💡 每次關閉彈窗時，解開 body 的鎖定
+// 💡 確保每次呼叫 closeModal 時，順便把 transform 歸零重置
 const originalCloseModal = window.closeModal;
 window.closeModal = function(id) {
   const el = document.getElementById(id);
@@ -4620,12 +4620,6 @@ window.closeModal = function(id) {
     }
   }
   if (originalCloseModal) originalCloseModal(id);
-  
-  // 檢查是不是所有彈窗都關了，如果是就解除 body 鎖定
-  const remainingOpen = document.querySelectorAll('.modal-backdrop-anim:not(.hidden)');
-  if (remainingOpen.length <= 1) {
-    document.body.classList.remove('modal-open-lock');
-  }
 };
 // ================= 支援按下 Esc 鍵關閉所有開啟中的彈窗 =================
 document.addEventListener('keydown', (e) => {
