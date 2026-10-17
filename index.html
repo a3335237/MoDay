@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="manifest" href="manifest.json">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -16,12 +18,31 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    html, body { background-color: #F8F7F5; color: #333333; font-family: 'Noto Sans TC', sans-serif !important; -webkit-tap-highlight-color: transparent; overflow-anchor: none; min-height: 100vh; }
+    /* ================= 鼴大叔萌日生活・全域大地色系變數 ================= */
+    :root {
+      --mole-bg: #FAF7F2;         /* 全局背景：溫潤奶茶白 */
+      --mole-card-bg: #FFFFFF;    /* 卡片背景：純白 */
+      --mole-primary: #3E2723;    /* 主標題/重要文字：沉穩深咖啡色 */
+      --mole-secondary: #7D5A50;  /* 副標題/說明文字：溫暖柔和棕 */
+      --mole-accent: #D67262;     /* 強調色/按鈕主色：療癒珊瑚橘 */
+      --mole-border: #E8DFD8;     /* 邊框線條：柔和淺奶茶邊框 */
+      --mole-surface: #F2ECE6;    /* 塊狀底色：溫馨米色區塊 */
+    }
+
+    html, body { 
+      background-color: var(--mole-bg) !important; 
+      color: var(--mole-primary) !important; 
+      font-family: 'Noto Sans TC', sans-serif !important; 
+      -webkit-tap-highlight-color: transparent; 
+      overflow-anchor: none; 
+      min-height: 100vh; 
+    }
+
     .brand-coral { background-color: #D67262; }
     .brand-coral-soft { background-color: #F7EAE7; color: #D67262; }
     .text-coral { color: #D67262; }
     .border-coral { border-color: #D67262; }
-    .card-shadow { box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03); }
+    .card-shadow { box-shadow: 0 4px 16px rgba(62, 39, 35, 0.04); } /* 稍微帶有一點暖色調的柔和陰影 */
     .nav-active { color: #D67262 !important; font-weight: 700; }
     .nav-dot { width: 4px; height: 4px; border-radius: 9999px; background-color: transparent; margin-bottom: 2px; transition: background-color 0.2s ease; }
     .nav-active .nav-dot { background-color: #D67262; }
@@ -41,8 +62,8 @@
     .hide-scrollbar::-webkit-scrollbar { display: none; }
     .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     input[type="range"].target-wt-slider { -webkit-appearance: none; appearance: none; width: 100%; height: 8px; border-radius: 999px; background: #ECEAE6; outline: none; }
-    input[type="range"].target-wt-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 36px; height: 24px; border-radius: 999px; background: #FFFFFF; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18); border: 1px solid #F1ECE9; cursor: pointer; }
-    input[type="range"].target-wt-slider::-moz-range-thumb { width: 36px; height: 24px; border-radius: 999px; background: #FFFFFF; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18); border: 1px solid #F1ECE9; cursor: pointer; }
+    input[type="range"].target-wt-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 36px; height: 24px; border-radius: 999px; background: #FFFFFF; box-shadow: 0 2px 8px rgba(62, 39, 35, 0.12); border: 1px solid #E8DFD8; cursor: pointer; }
+    input[type="range"].target-wt-slider::-moz-range-thumb { width: 36px; height: 24px; border-radius: 999px; background: #FFFFFF; box-shadow: 0 2px 8px rgba(62, 39, 35, 0.12); border: 1px solid #E8DFD8; cursor: pointer; }
     @keyframes waterDropWobble { 0% { transform: translate(-50%, -50%) scale(0.25); opacity: 0; } 35% { transform: translate(-50%, -50%) scale(1.06) rotate(-7deg); opacity: 1; } 60% { transform: translate(-50%, -50%) scale(0.96) rotate(7deg); opacity: 1; } 80% { transform: translate(-50%, -50%) scale(1.02) rotate(-3deg); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 1; } }
     .water-fly-wobble { animation: waterDropWobble 0.24s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
     @keyframes cupSlotPop { 0% { transform: scale(0.55); } 60% { transform: scale(1.22); } 100% { transform: scale(1); } }
@@ -440,9 +461,9 @@
     </div>
   </main>
 
-  <!-- 底部懸浮圓弧導航列 -->
+  <!-- 底部懸浮圓弧導航列 (升級暖色陰影與質感邊框) -->
   <div class="fixed left-0 right-0 z-40 max-w-md mx-auto px-3.5 floating-nav-wrapper pointer-events-none">
-    <nav class="pointer-events-auto bg-white/95 backdrop-blur-md border border-[#F0EAE6] rounded-[28px] px-2 py-2 shadow-[0_8px_28px_rgba(0,0,0,0.08)]">
+    <nav class="pointer-events-auto bg-white/95 backdrop-blur-md border border-[#E8DFD8] rounded-[28px] px-2 py-2 shadow-[0_8px_28px_rgba(62,39,35,0.08)]">
       <div class="grid grid-cols-5 gap-1 items-center text-center">
         <button type="button" onclick="switchTab('dashboard')" id="nav-dashboard" class="flex flex-col items-center justify-center py-0.5 text-slate-500 nav-active active:scale-95 transition"><span class="nav-dot"></span><i class="fa-solid fa-house text-[18px]"></i><span class="text-[11px] mt-0.5 font-medium">首頁</span></button>
         <button type="button" onclick="switchTab('weight')" id="nav-weight" class="flex flex-col items-center justify-center py-0.5 text-slate-500 active:scale-95 transition"><span class="nav-dot"></span><i class="fa-regular fa-calendar-check text-[18px]"></i><span class="text-[11px] mt-0.5 font-medium">體重</span></button>
@@ -467,69 +488,333 @@
   </style>
 
   <!-- ================= 彈窗區塊 ================= -->
-<!-- ================= 新用戶歡迎引導彈窗 (Onboarding) ================= -->
-  <div id="onboarding-modal" class="fixed inset-0 bg-black/50 z-[100] flex items-center justify-center p-4 hidden modal-backdrop-anim">
-    <div class="bg-[#F8F7F5] rounded-[32px] max-w-sm w-full p-6 space-y-4 shadow-2xl modal-sheet-anim relative overflow-hidden">
-      <!-- 右上角關閉按鈕 (允許用戶跳過) -->
-      <button type="button" onclick="closeModal('onboarding-modal')" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#EFECE8] text-slate-500 flex items-center justify-center active:scale-90 transition"><i class="fa-solid fa-xmark text-sm"></i></button>
+<!-- ================= 升級版多步驟引導彈窗 (Onboarding) ================= -->
+  <div id="onboarding-modal" class="fixed inset-0 bg-[#F8F7F5] z-[100] flex flex-col justify-between p-6 hidden modal-backdrop-anim">
+  <div class="bg-[#F8F7F5] w-full h-full space-y-4 relative overflow-hidden flex flex-col justify-between max-w-md mx-auto pt-4">
+      
+      <!-- 右上角關閉按鈕 (允許用戶隨時跳過) -->
+      <button type="button" onclick="closeModal('onboarding-modal')" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#EFECE8] text-slate-500 flex items-center justify-center active:scale-90 transition z-10"><i class="fa-solid fa-xmark text-sm"></i></button>
 
-      <!-- 步驟 1：歡迎與登入 -->
-      <div id="ob-step-1" class="space-y-6">
-        <div class="text-center mt-4">
-          <div class="w-16 h-16 bg-[#D67262] text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl shadow-sm">
-            <i class="fa-solid fa-hand-sparkles"></i>
-          </div>
-          <h3 class="font-black text-slate-800 text-xl tracking-wide">歡迎來到 MoDay！</h3>
-          <p class="text-xs text-slate-500 mt-2 font-medium">讓我們花 10 秒鐘開啟您的專屬健康旅程</p>
-        </div>
-        <div class="space-y-3 pt-2">
-          <button type="button" onclick="signInWithGoogle(); closeModal('onboarding-modal');" class="w-full py-4 bg-white border border-slate-200 text-slate-700 rounded-2xl text-sm font-bold shadow-sm active:scale-95 transition flex items-center justify-center gap-2">
-            <i class="fa-brands fa-google text-[#D67262]"></i> 使用 Google 登入綁定
-          </button>
-          <button type="button" onclick="goToOnboardingStep(2)" class="w-full py-4 bg-[#D67262] text-white rounded-2xl text-sm font-bold shadow-sm active:scale-95 transition">
-            先以訪客身分繼續
-          </button>
-        </div>
+      <!-- 頂部進度條指示點 -->
+      <div class="flex justify-center items-center gap-1.5 pt-2">
+        <div id="ob-dot-1" class="w-6 h-1 rounded-full bg-[#D67262] transition-all"></div>
+        <div id="ob-dot-2" class="w-1.5 h-1 rounded-full bg-slate-300 transition-all"></div>
+        <div id="ob-dot-3" class="w-1.5 h-1 rounded-full bg-slate-300 transition-all"></div>
+        <div id="ob-dot-4" class="w-1.5 h-1 rounded-full bg-slate-300 transition-all"></div>
+        <div id="ob-dot-5" class="w-1.5 h-1 rounded-full bg-slate-300 transition-all"></div>
+        <div id="ob-dot-6" class="w-1.5 h-1 rounded-full bg-slate-300 transition-all"></div>
+        <div id="ob-dot-7" class="w-1.5 h-1 rounded-full bg-slate-300 transition-all"></div>
+        <div id="ob-dot-8" class="w-1.5 h-1 rounded-full bg-slate-300 transition-all"></div>
+        <div id="ob-dot-9" class="w-1.5 h-1 rounded-full bg-slate-300 transition-all"></div>
       </div>
 
-     <!-- 步驟 2：基本資料設定 (簡潔輸入版) -->
-      <div id="ob-step-2" class="space-y-4 hidden">
-        <div class="text-center mt-2 mb-4">
-          <h3 class="font-black text-slate-800 text-lg">設定您的起點</h3>
-          <p class="text-[11px] text-slate-500 mt-1 font-medium">完善基礎數據，讓 AI 分析與圖表更精準</p>
-        </div>
-        <div class="space-y-3">
-          <!-- 性別 -->
-          <div class="bg-white px-4 py-3 rounded-2xl card-shadow border border-slate-100 flex justify-between items-center">
-            <span class="text-sm font-bold text-slate-700">性別</span>
-            <div class="flex gap-2">
-              <button type="button" id="ob-gender-F" onclick="setObGender('生理女')" class="px-3 py-1.5 rounded-xl border border-slate-200 text-slate-500 text-xs font-bold transition">生理女</button>
-              <button type="button" id="ob-gender-M" onclick="setObGender('生理男')" class="px-3 py-1.5 rounded-xl border border-slate-200 text-slate-500 text-xs font-bold transition">生理男</button>
+      <!-- 步驟 1：歡迎頁 (MoDay 品牌視覺與可愛鼴鼠 - 質感優化版) -->
+        <div id="ob-step-1" class="text-center max-w-sm mx-auto w-full px-4 flex flex-col justify-between h-full py-4">
+          <div></div> <!-- 頂部空間平衡 -->
+
+          <!-- 中間核心視覺區 -->
+          <div class="space-y-6 my-auto">
+            <!-- 鼴鼠吃菜可愛大插圖 -->
+            <div class="w-48 h-48 mx-auto flex items-center justify-center">
+              <img src="墨鏡鼴鼠吃生菜.png" alt="歡迎鼴鼠" class="w-full h-full object-contain" onerror="this.style.display='none';this.nextElementSibling.classList.remove('hidden');">
+              <div class="hidden text-xs text-slate-400 font-bold border-2 border-dashed border-slate-200 w-full h-full rounded-3xl flex items-center justify-center">【鼴鼠吃菜插圖】</div>
+            </div>
+
+            <!-- 品牌標題與副標題 (階層、字重、間距與色彩優化) -->
+            <div class="space-y-2.5">
+              <!-- 主 Logo：維持最粗、最顯眼的視覺得意作 -->
+              <h1 class="text-4xl font-black tracking-tight text-[#3E2723]" style="font-family: 'Fredoka', sans-serif;">MoDay</h1>
+              
+              <!-- 副標題：調細字重、柔和色階、緊湊間隔號 -->
+              <p class="text-[13px] font-normal tracking-tight text-[#7D5A50] leading-relaxed px-4" style="font-family: 'M PLUS Rounded 1c', 'Microsoft JhengHei Rounded', sans-serif;">
+                鼴大叔陪你萌日記錄 · 療程施打與健康生活
+              </p>
             </div>
           </div>
-          <!-- 身高 -->
-          <div class="bg-white px-4 py-3.5 rounded-2xl card-shadow border border-slate-100 flex justify-between items-center">
-            <span class="text-sm font-bold text-slate-700">身高 (cm)</span>
-            <input type="number" id="ob-height" placeholder="例: 165" class="w-24 text-right text-lg font-black text-[#D67262] border-b border-slate-100 focus:border-[#D67262] outline-none bg-transparent">
+
+          <div></div> <!-- 底部空間平衡 -->
+        </div>
+       <!-- 步驟 2：智慧打針提醒 (標題固定在最上方) -->
+        <div id="ob-step-2" class="text-center max-w-sm mx-auto w-full px-4 flex flex-col justify-between h-full py-2">
+          <!-- 上方標題區 -->
+          <div>
+            <h3 class="font-black text-slate-800 text-2xl tracking-tight">智慧打針提醒</h3>
+            <p class="text-xs text-slate-500 font-medium mt-1">自訂你的打針週期與提醒時間</p>
           </div>
-          <!-- 起始體重 -->
-          <div class="bg-white px-4 py-3.5 rounded-2xl card-shadow border border-slate-100 flex justify-between items-center">
-            <span class="text-sm font-bold text-slate-700">起始體重 (kg)</span>
-            <input type="number" step="0.1" id="ob-weight" placeholder="例: 65.5" class="w-24 text-right text-lg font-black text-[#D67262] border-b border-slate-100 focus:border-[#D67262] outline-none bg-transparent">
+
+          <!-- 中間生動、帶有角度與偏移的通知卡片區塊 -->
+          <div class="relative py-4 px-2 my-auto flex flex-col items-center justify-center">
+            <!-- 第一張通知 (稍微往左上方傾斜) -->
+            <div class="w-[90%] bg-white p-3.5 rounded-2xl shadow-lg border border-slate-100 flex items-start gap-3 text-left transform -rotate-3 -translate-y-2 translate-x-1 z-10">
+              <div class="w-9 h-9 rounded-xl bg-[#5856D6] text-white flex items-center justify-center flex-shrink-0 text-base shadow-sm">💊</div>
+              <div class="min-w-0 flex-1">
+                <div class="flex justify-between items-center"><span class="text-xs font-extrabold text-slate-800">明天用藥提醒 📅</span><span class="text-[9px] text-slate-400 font-mono">now</span></div>
+                <div class="text-[11px] text-slate-600 mt-0.5 truncate">提前準備，明天用藥更安心！</div>
+              </div>
+            </div>
+
+            <!-- 第二張通知 (稍微往右下方傾斜，壓在上方) -->
+            <div class="w-[90%] bg-white p-3.5 rounded-2xl shadow-xl border border-slate-100 flex items-start gap-3 text-left transform rotate-2 translate-y-1 -translate-x-1 relative z-20">
+              <div class="w-9 h-9 rounded-xl bg-[#FFCC00] text-white flex items-center justify-center flex-shrink-0 text-base shadow-sm relative">
+                🔔
+                <span class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-[9px] font-bold rounded-full flex items-center justify-center ring-2 ring-white">1</span>
+              </div>
+              <div class="min-w-0 flex-1">
+                <div class="flex justify-between items-center"><span class="text-xs font-extrabold text-slate-800">當天用藥提醒 ✅</span><span class="text-[9px] text-slate-400 font-mono">now</span></div>
+                <div class="text-[11px] text-slate-600 mt-0.5 truncate">現在是用藥時間，記得按時用藥！</div>
+              </div>
+            </div>
           </div>
-          <!-- 目標體重 -->
-          <div class="bg-white px-4 py-3.5 rounded-2xl card-shadow border border-slate-100 flex justify-between items-center">
-            <span class="text-sm font-bold text-slate-700">目標體重 (kg)</span>
-            <input type="number" step="0.1" id="ob-target" placeholder="例: 50.0" class="w-24 text-right text-lg font-black text-[#D67262] border-b border-slate-100 focus:border-[#D67262] outline-none bg-transparent">
+
+          <!-- 底部按鈕區 (對應圖片二的兩顆按鈕) -->
+          <div class="space-y-3 pb-2">
+            <button type="button" onclick="requestNotificationPermissionManually().then(() => onboardingNextStep())" class="w-full py-4 bg-[#D67262] hover:bg-[#C86252] text-white rounded-2xl text-sm font-bold shadow-md active:scale-95 transition flex items-center justify-center gap-2">
+  <i class="fa-solid fa-bell"></i> 開啟提醒通知
+</button>
+            <button type="button" onclick="onboardingNextStep()" class="w-full py-2 bg-transparent text-slate-400 hover:text-slate-600 text-xs font-bold transition">
+              先跳過
+            </button>
           </div>
         </div>
-        
-        <!-- 按鈕區 -->
-        <div class="flex gap-3 pt-3">
-          <button type="button" onclick="goToOnboardingStep(1)" class="w-12 py-3.5 bg-white border border-slate-200 text-slate-500 rounded-2xl text-sm font-bold active:scale-95 transition flex items-center justify-center"><i class="fa-solid fa-arrow-left"></i></button>
-          <button type="button" onclick="finishOnboarding()" class="flex-1 py-3.5 bg-[#D67262] text-white rounded-2xl text-sm font-bold shadow-sm active:scale-95 transition">完成設定，開始旅程 🚀</button>
+
+        <!-- 步驟 3：您的性別是 (標題固定在最上方) -->
+        <div id="ob-step-3" class="text-center max-w-sm mx-auto w-full px-4 flex flex-col justify-between h-full py-2">
+          <!-- 上方標題區 -->
+          <div>
+            <h3 class="font-black text-slate-800 text-2xl tracking-tight">你的性別是</h3>
+            <p class="text-xs text-slate-500 font-medium mt-1">讓 Molife 為你提供更精準的體重建議</p>
+          </div>
+
+          <!-- 中間互動與插圖區塊 (完美垂直置中) -->
+          <div class="space-y-6 my-auto">
+            <!-- 性別選擇卡片 -->
+            <div class="space-y-3">
+              <div onclick="setObGender('生理女')" id="ob-gender-card-F" class="p-4 rounded-2xl border border-slate-200/80 bg-white flex items-center justify-between cursor-pointer transition shadow-sm active:scale-[0.98]">
+                <span class="text-sm font-extrabold text-slate-800">生理女</span>
+                <div id="ob-radio-F" class="w-6 h-6 rounded-full border-2 border-slate-300 flex items-center justify-center transition"></div>
+              </div>
+              <div onclick="setObGender('生理男')" id="ob-gender-card-M" class="p-4 rounded-2xl border border-slate-200/80 bg-white flex items-center justify-between cursor-pointer transition shadow-sm active:scale-[0.98]">
+                <span class="text-sm font-extrabold text-slate-800">生理男</span>
+                <div id="ob-radio-M" class="w-6 h-6 rounded-full border-2 border-slate-300 flex items-center justify-center transition"></div>
+              </div>
+            </div>
+
+            <!-- 吉祥物/插圖預留位置 -->
+            <div class="w-40 h-40 mx-auto flex items-center justify-center">
+              <img src="墨鏡鼴鼠活力健身秀.png" alt="吉祥物插圖" class="w-full h-full object-contain" onerror="this.style.display='none';this.nextElementSibling.classList.remove('hidden');">
+              <div class="hidden text-xs text-slate-400 font-bold border-2 border-dashed border-slate-200 w-full h-full rounded-2xl flex items-center justify-center">【插圖預留位置】</div>
+            </div>
+          </div>
+
+          <!-- 底部預留空間讓導航列對齊 -->
+          <div></div>
+        </div>
+
+        <!-- 步驟 4：哪天開始療程的 (高質感三欄式滾輪 - 自動生成版) -->
+        <div id="ob-step-4" class="text-center max-w-sm mx-auto w-full px-4 flex flex-col justify-between h-full py-2">
+          <!-- 上方標題區 -->
+          <div>
+            <h3 class="font-black text-slate-800 text-2xl tracking-tight">哪天開始療程的，大概就好</h3>
+            <p class="text-xs text-slate-500 font-medium mt-1">之後都可以修改</p>
+          </div>
+
+          <!-- 中間三欄式滾輪選擇區塊 -->
+          <div class="my-auto space-y-4">
+            <div class="relative h-40 bg-[#F2ECE6]/60 rounded-3xl overflow-hidden flex items-center justify-between px-4 border border-[#E8DFD8] shadow-inner">
+              <!-- 中間選中的高亮橫條背景 -->
+              <div class="absolute inset-x-3 top-1/2 -translate-y-1/2 h-11 bg-white rounded-2xl pointer-events-none z-0 shadow-sm border border-[#E5D7CD]/60"></div>
+
+              <!-- 年份滾輪 (改用精準 padding: 62px 0; 確保最上與最下可以完美置中) -->
+              <div id="ob-wheel-year" class="w-1/3 h-full overflow-y-scroll overflow-x-hidden touch-pan-y snap-y snap-mandatory hide-scrollbar relative z-10 text-center space-y-4" style="padding: 62px 0;" onscroll="handleObDateScroll('year')">
+                <!-- 由 JS 動態產生 -->
+              </div>
+
+              <!-- 月份滾輪 -->
+              <div id="ob-wheel-month" class="w-1/3 h-full overflow-y-scroll overflow-x-hidden touch-pan-y snap-y snap-mandatory hide-scrollbar relative z-10 text-center space-y-4" style="padding: 62px 0;" onscroll="handleObDateScroll('month')">
+                <!-- 由 JS 動態產生 -->
+              </div>
+
+              <!-- 日期滾輪 -->
+              <div id="ob-wheel-day" class="w-1/3 h-full overflow-y-scroll overflow-x-hidden touch-pan-y snap-y snap-mandatory hide-scrollbar relative z-10 text-center space-y-4" style="padding: 62px 0;" onscroll="handleObDateScroll('day')">
+                <!-- 由 JS 動態產生 -->
+              </div>
+            </div>
+
+            <div class="text-[11px] text-slate-400 font-medium">隨時可在「體重」頁面修改</div>
+
+            <!-- 畫家鼴鼠插圖預留位置 -->
+            <div class="w-32 h-32 mx-auto flex items-center justify-center">
+              <img src="墨鏡鼴鼠活力健身秀.png" alt="畫家插圖" class="w-full h-full object-contain" onerror="this.style.display='none';this.nextElementSibling.classList.remove('hidden');">
+              <div class="hidden text-xs text-slate-400 font-bold border-2 border-dashed border-slate-200 w-full h-full rounded-2xl flex items-center justify-center">【畫家鼴鼠插圖】</div>
+            </div>
+          </div>
+
+          <!-- 底部預留空間讓導航列對齊 -->
+          <div></div>
+        </div>
+
+        <!-- 步驟 5：第一次用藥劑量 (mg) 滾輪版 -->
+        <div id="ob-step-5" class="text-center max-w-sm mx-auto w-full px-4 flex flex-col justify-between h-full py-2 hidden">
+          <!-- 上方標題區 -->
+          <div>
+            <h3 class="font-black text-slate-800 text-2xl tracking-tight">第一次用藥劑量</h3>
+            <p id="ob-step-5-subtitle" class="text-xs text-slate-500 font-medium mt-1">--年--月--日注射劑量</p>
+          </div>
+
+          <!-- 中間單欄劑量滾輪區塊 -->
+          <div class="my-auto space-y-4">
+            <div class="relative h-44 bg-[#F2ECE6]/60 rounded-3xl overflow-hidden flex items-center justify-center px-4 border border-[#E8DFD8] shadow-inner w-56 mx-auto">
+              <!-- 中間選中的高亮橫條背景 -->
+              <div class="absolute inset-x-4 top-1/2 -translate-y-1/2 h-12 bg-white rounded-2xl pointer-events-none z-0 shadow-sm border border-[#E5D7CD]/60"></div>
+              
+              <!-- 固定的 mg 單位 -->
+              <div class="absolute right-10 top-1/2 -translate-y-1/2 font-black text-slate-700 text-lg pointer-events-none z-20">mg</div>
+
+              <!-- 劑量滾輪 (利用 JS 塞入 0.25 ~ 15.0 的數值) -->
+              <div id="ob-wheel-dose" class="w-full h-full overflow-y-scroll overflow-x-hidden touch-pan-y snap-y snap-mandatory hide-scrollbar relative z-10 text-center space-y-4 pr-8" style="padding: 70px 0;" onscroll="handleObDoseScroll()">
+                <!-- 由 JS 動態產生 -->
+              </div>
+            </div>
+
+            <div class="text-[11px] text-slate-400 font-medium">可在「注射」頁修改</div>
+
+            <!-- 畫家鼴鼠插圖預留位置 (對應伸展動作) -->
+            <div class="w-32 h-32 mx-auto flex items-center justify-center">
+              <img src="墨鏡鼴鼠活力健身秀.png" alt="健身插圖" class="w-full h-full object-contain" onerror="this.style.display='none';this.nextElementSibling.classList.remove('hidden');">
+              <div class="hidden text-xs text-slate-400 font-bold border-2 border-dashed border-slate-200 w-full h-full rounded-2xl flex items-center justify-center">【伸展鼴鼠插圖】</div>
+            </div>
+          </div>
+
+          <!-- 底部預留空間讓導航列對齊 -->
+          <div></div>
+        </div>
+
+        <!-- 步驟 6：當天的體重 (kg, 0.1 單位) 滾輪版 -->
+        <div id="ob-step-6" class="text-center max-w-sm mx-auto w-full px-4 flex flex-col justify-between h-full py-2 hidden">
+          <div>
+            <h3 class="font-black text-slate-800 text-2xl tracking-tight"><span id="ob-step-6-subtitle">--月--日</span>那天的體重</h3>
+            <p class="text-xs text-slate-500 font-medium mt-1">大概就好</p>
+          </div>
+
+          <div class="my-auto space-y-4">
+            <div class="relative h-44 bg-[#F2ECE6]/60 rounded-3xl overflow-hidden flex items-center justify-center px-4 border border-[#E8DFD8] shadow-inner w-56 mx-auto">
+              <div class="absolute inset-x-4 top-1/2 -translate-y-1/2 h-12 bg-white rounded-2xl pointer-events-none z-0 shadow-sm border border-[#E5D7CD]/60"></div>
+              
+              <!-- 💡 單位往右靠邊 (right-8) -->
+              <div class="absolute right-8 top-1/2 -translate-y-1/2 font-black text-[#D67262] text-lg pointer-events-none z-20">kg</div>
+
+              <!-- 💡 滾輪內容往左推 (pr-10) 避免撞到單位 -->
+              <div id="ob-wheel-weight" class="w-full h-full overflow-y-scroll overflow-x-hidden touch-pan-y snap-y snap-mandatory hide-scrollbar relative z-10 text-center space-y-4 pr-10" style="padding: 70px 0;" onscroll="handleObWeightScroll()">
+                <!-- 由 JS 動態產生 -->
+              </div>
+            </div>
+
+            <div class="text-[11px] text-slate-400 font-medium">隨時可在「體重」頁修改</div>
+
+            <div class="w-32 h-32 mx-auto flex items-center justify-center mt-2">
+              <img src="墨鏡鼴鼠站上體重計.png" alt="體重計插圖" class="w-full h-full object-contain" onerror="this.style.display='none';this.nextElementSibling.classList.remove('hidden');">
+            </div>
+          </div>
+          <div></div>
+        </div>
+
+        <!-- 步驟 7：您的身高是 (cm, 0.1 單位) 滾輪版 -->
+        <div id="ob-step-7" class="text-center max-w-sm mx-auto w-full px-4 flex flex-col justify-between h-full py-2 hidden">
+          <div>
+            <h3 class="font-black text-slate-800 text-2xl tracking-tight">你的身高是</h3>
+            <p class="text-xs text-slate-500 font-medium mt-1">讓 MoDay 計算 BMI 和理想體重</p>
+          </div>
+
+          <div class="my-auto space-y-4">
+            <div class="relative h-44 bg-[#F2ECE6]/60 rounded-3xl overflow-hidden flex items-center justify-center px-4 border border-[#E8DFD8] shadow-inner w-56 mx-auto">
+              <div class="absolute inset-x-4 top-1/2 -translate-y-1/2 h-12 bg-white rounded-2xl pointer-events-none z-0 shadow-sm border border-[#E5D7CD]/60"></div>
+              
+              <div class="absolute right-8 top-1/2 -translate-y-1/2 font-black text-[#D67262] text-lg pointer-events-none z-20">cm</div>
+
+              <div id="ob-wheel-height" class="w-full h-full overflow-y-scroll overflow-x-hidden touch-pan-y snap-y snap-mandatory hide-scrollbar relative z-10 text-center space-y-4 pr-10" style="padding: 70px 0;" onscroll="handleObHeightScroll()">
+                <!-- 由 JS 動態產生 -->
+              </div>
+            </div>
+
+            <div class="text-[11px] text-slate-400 font-medium">可在「設定」頁面更新</div>
+
+            <div class="w-32 h-32 mx-auto flex items-center justify-center mt-2">
+              <img src="墨鏡鼴鼠量身高.png" alt="身高插圖" class="w-full h-full object-contain" onerror="this.style.display='none';this.nextElementSibling.classList.remove('hidden');">
+              <!-- 💡 補回這裡的虛線圖格 -->
+              <div class="hidden text-xs text-slate-400 font-bold border-2 border-dashed border-slate-200 w-full h-full rounded-2xl flex items-center justify-center">【長頸鹿插圖】</div>
+            </div>
+          </div>
+          <div></div>
+        </div>
+
+        <!-- 步驟 8：您的目標體重 (kg, 0.5 單位) 滾輪版 -->
+        <div id="ob-step-8" class="text-center max-w-sm mx-auto w-full px-4 flex flex-col justify-between h-full py-2 hidden">
+          <div>
+            <h3 class="font-black text-slate-800 text-2xl tracking-tight">你的目標體重</h3>
+            <p class="text-xs text-slate-500 font-medium mt-1">Molife 陪你一起達成</p>
+          </div>
+
+          <div class="my-auto space-y-4">
+            <div class="relative h-44 bg-[#F2ECE6]/60 rounded-3xl overflow-hidden flex items-center justify-center px-4 border border-[#E8DFD8] shadow-inner w-56 mx-auto">
+              <div class="absolute inset-x-4 top-1/2 -translate-y-1/2 h-12 bg-white rounded-2xl pointer-events-none z-0 shadow-sm border border-[#E5D7CD]/60"></div>
+              
+              <div class="absolute right-8 top-1/2 -translate-y-1/2 font-black text-[#D67262] text-lg pointer-events-none z-20">kg</div>
+
+              <div id="ob-wheel-target" class="w-full h-full overflow-y-scroll overflow-x-hidden touch-pan-y snap-y snap-mandatory hide-scrollbar relative z-10 text-center space-y-4 pr-10" style="padding: 70px 0;" onscroll="handleObTargetScroll()">
+                <!-- 由 JS 動態產生 -->
+              </div>
+            </div>
+
+            <div class="text-[11px] text-slate-400 font-medium">可在「體重」頁面更新</div>
+
+            <div class="w-32 h-32 mx-auto flex items-center justify-center mt-2">
+              <img src="墨鏡鼴鼠度假.png" alt="度假插圖" class="w-full h-full object-contain" onerror="this.style.display='none';this.nextElementSibling.classList.remove('hidden');">
+              <!-- 💡 補回這裡的虛線圖格 -->
+              <div class="hidden text-xs text-slate-400 font-bold border-2 border-dashed border-slate-200 w-full h-full rounded-2xl flex items-center justify-center">【海灘鼴鼠插圖】</div>
+            </div>
+          </div>
+          <div></div>
+        </div>
+
+        <!-- 步驟 9：使用 Google 登入 (獨立的最後一頁) -->
+        <div id="ob-step-9" class="text-center max-w-sm mx-auto w-full px-4 flex flex-col justify-between h-full py-2 hidden">
+          <!-- 上方標題與按鈕區 -->
+          <div class="mt-8 space-y-6 flex-1">
+            <div>
+              <h3 class="font-black text-slate-800 text-[28px] tracking-tight">使用 Google 登入</h3>
+              <p class="text-xs text-slate-500 font-medium mt-2">免註冊，直接登入，確保資料不會丟失</p>
+            </div>
+
+            <div class="space-y-4 pt-4 px-2">
+              <!-- 💡 Google 登入按鈕 -->
+              <button type="button" onclick="signInWithGoogle(); finishOnboarding();" class="w-full py-4 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-2xl text-[17px] font-bold shadow-sm active:scale-95 transition flex items-center justify-center gap-2">
+                <i class="fa-brands fa-google text-[#D67262] text-xl mb-0.5"></i> 使用 Google 登入
+              </button>
+              
+              <!-- 跳過按鈕 -->
+              <button type="button" onclick="finishOnboarding()" class="py-2 text-slate-500 hover:text-slate-700 text-sm font-bold transition active:scale-95">
+                先跳過
+              </button>
+            </div>
+          </div>
+
+          <!-- 畫家鼴鼠插圖預留位置 (登山客) -->
+          <div class="w-64 h-64 mx-auto flex items-end justify-center mb-6">
+            <img src="墨鏡鼴鼠登山客.png" alt="登山插圖" class="w-full h-full object-contain" onerror="this.style.display='none';this.nextElementSibling.classList.remove('hidden');">
+            <div class="hidden text-xs text-slate-400 font-bold border-2 border-dashed border-slate-200 w-full h-full rounded-2xl flex items-center justify-center">【登山鼴鼠插圖】</div>
+          </div>
+        </div>
+
+      </div> 
+
+      <!-- 🚨 底部按鈕導航區 (加上 max-w-sm mx-auto 限制寬度) 🚨 -->
+      <div class="max-w-sm mx-auto w-full px-4 pb-4">
+        <div id="ob-global-nav" class="flex gap-2 pt-2 border-t border-slate-100">
+          <button type="button" id="ob-btn-prev" onclick="onboardingPrevStep()" class="w-1/3 py-3 bg-white border border-slate-200 text-slate-600 rounded-2xl text-xs font-bold active:scale-95 transition">上一步</button>
+          <button type="button" id="ob-btn-next" onclick="onboardingNextStep()" class="flex-1 py-3 bg-[#D67262] text-white rounded-2xl text-xs font-bold shadow-sm active:scale-95 transition">下一步</button>
         </div>
       </div>
+
     </div> 
   </div>
   <!-- 0-AI. 分享資料給 AI 分析彈窗 -->
@@ -1194,19 +1479,19 @@
           </div>
 
           <!-- 起始日 -->
-          <div onclick="openSettingStartDatePicker()" class="px-4 py-3.5 flex items-center justify-between cursor-pointer hover:bg-slate-50/70 active:bg-slate-100/60 transition relative">
-            <div class="flex items-center gap-3.5">
-              <div class="w-10 h-10 rounded-xl bg-[#EAF4EC] text-[#529460] flex items-center justify-center flex-shrink-0">
-                <i class="fa-regular fa-calendar text-base"></i>
-              </div>
-              <span class="font-bold text-slate-800 text-sm">起始日</span>
-            </div>
-            <div class="flex items-center gap-2 text-slate-500 text-sm relative">
-              <span id="set-row-start-date">尚未設定</span>
-              <i class="fa-solid fa-chevron-right text-xs text-slate-300"></i>
-              <input type="date" id="cfg-start-date" onchange="saveQuickStartDate()" class="absolute inset-0 opacity-0 w-full h-full cursor-pointer">
-            </div>
-          </div>
+<div onclick="openSettingStartDatePicker()" class="px-4 py-3.5 flex items-center justify-between cursor-pointer hover:bg-slate-50/70 active:bg-slate-100/60 transition relative">
+  <div class="flex items-center gap-3.5">
+    <div class="w-10 h-10 rounded-xl bg-[#EAF4EC] text-[#529460] flex items-center justify-center flex-shrink-0">
+      <i class="fa-regular fa-calendar text-base"></i>
+    </div>
+    <span class="font-bold text-slate-800 text-sm">起始日</span>
+  </div>
+  <div class="flex items-center gap-2 text-slate-500 text-sm relative">
+    <span id="set-row-start-date">尚未設定</span>
+    <i class="fa-solid fa-chevron-right text-xs text-slate-300"></i>
+    <!-- 💡 注意：原本這裡有一行 <input type="date"> 已經被我們大膽地刪掉了！ -->
+  </div>
+</div>
 
           <!-- 身高 -->
           <div onclick="openSimpleSettingField('height')" class="px-4 py-3.5 flex items-center justify-between cursor-pointer hover:bg-slate-50/70 active:bg-slate-100/60 transition">
@@ -1377,35 +1662,7 @@
       </div>
     </div>
   </div>
-<!-- AI 飲食辨識設定彈窗 (由下往上彈出) -->
-  <div id="ai-config-modal" class="fixed inset-0 bg-black/40 z-[65] flex items-end sm:items-center justify-center p-0 sm:p-4 hidden modal-backdrop-anim">
-    <div class="bg-[#FAF8F6] rounded-t-3xl sm:rounded-3xl max-w-md w-full p-5 pt-3 safe-modal-bottom space-y-4 font-medium shadow-2xl modal-sheet-anim">
-      <div class="w-10 h-1 bg-[#E5DEC9]/80 rounded-full mx-auto mb-1"></div>
-      <div class="flex justify-between items-center">
-        <h3 class="font-bold text-slate-800 text-lg">AI 飲食辨識設定</h3>
-        <button type="button" onclick="closeModal('ai-config-modal')" class="w-8 h-8 rounded-full bg-[#F5F2EF] text-slate-500 flex items-center justify-center active:scale-90 transition"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      <div class="space-y-3">
-        <div class="bg-white p-4 rounded-2xl card-shadow border border-slate-100/80 space-y-3">
-          <label class="block text-slate-800 font-bold text-xs">Gemini API 金鑰 (用於飲食拍照/文字辨識)</label>
-          <input type="password" id="cfg-gemini-key-modal" placeholder="sb_publishable_t1A50b8_UMDIgKnuWWmnNQ_1_RE0Olx" class="w-full text-sm p-3 rounded-xl border border-slate-200 font-medium text-slate-700 bg-slate-50 outline-none">
-          <label class="block text-slate-800 font-bold text-xs pt-1">選擇 AI 模型</label>
-          <select id="cfg-gemini-model-modal" class="w-full text-sm p-3 rounded-xl border border-slate-200 font-medium text-slate-700 bg-slate-50 outline-none">
-            <option value="gemini-3.8-flash">Gemini 3.8 Flash</option>
-            <option value="gemini-3.5-flash-lite">Gemini 3.5 Flash-Lite</option>
-            <option value="gemini-3.1-pro">Gemini 3.1 Pro</option>
-          </select>
-          <div class="pt-1">
-            <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-xs text-[#8456A8] underline font-bold">免費獲取 Gemini API Key</a>
-          </div>
-        </div>
-      </div>
-      <div class="flex gap-3 pt-2">
-        <button type="button" onclick="closeModal('ai-config-modal')" class="flex-1 py-3.5 bg-white border border-slate-200 text-slate-600 rounded-2xl text-sm font-bold active:scale-95 transition">取消</button>
-        <button type="button" onclick="saveAiConfigFromModal()" class="flex-[1.3] py-3.5 brand-coral text-white rounded-2xl text-sm font-bold shadow-sm active:scale-95 transition">儲存</button>
-      </div>
-    </div>
-  </div>
+
 <script>
 // 切換子視窗內的打針通知開關
 function toggleModalReminderSwitch() {
@@ -1517,39 +1774,7 @@ async function checkUserSession() {
 supabaseClient.auth.onAuthStateChange((event, session) => {
   checkUserSession(); 
 });
-// 註冊通知並寫入 Supabase 資料庫
-async function registerServiceWorkerAndPush() {
 
-  if ('serviceWorker' in navigator && 'PushManager' in window) {
-    try {
-      const registration = await navigator.serviceWorker.register('sw.js');
-      console.log('Service Worker 註冊成功');
-
-      const permission = await Notification.requestPermission();
-      if (permission === 'granted') {
-        showToast('已成功啟用通知權限！');
-        
-        const subscription = await registration.pushManager.subscribe({
-          userVisibleOnly: true,
-          applicationServerKey: undefined
-        }).catch(() => null);
-
-        if (subscription) {
-          const userId = window.appState.profile?.userId || 'default_user';
-          // 將手機的推播訂閱寫入 Supabase 的 push_subscriptions 資料表
-          const { error } = await supabaseClient
-            .from('push_subscriptions')
-            .upsert({ user_id: userId, subscription: subscription }, { onConflict: 'user_id' });
-          
-          if (error) console.error('寫入 Supabase 失敗:', error.message);
-          else console.log('推播訂閱已成功同步至 Supabase！');
-        }
-      }
-    } catch (error) {
-      console.error('推播註冊發生錯誤:', error);
-    }
-  }
-}
 // 點擊後立刻透過 Service Worker 發送一則測試通知
 async function sendTestLocalNotification() {
   // 🔍 檢查設定中的打針通知開關是否為開啟狀態
@@ -1971,16 +2196,7 @@ if ($id('cfg-start-date'))$id('cfg-start-date').value = displayDate;
       showToast('已複製 ID：' + uid);
     }
 
-    function openSettingStartDatePicker() {
-      try { $id('cfg-start-date')?.showPicker?.(); } catch(e) {}
-    }
-
-    function saveQuickStartDate() {
-      const val = $id('cfg-start-date')?.value;
-      if (!val) return;
-      window.appState.profile.startDate = val;
-      saveState(); syncProfileModalUI(); renderAll(); showToast('起始日已更新');
-    }
+    
 
     function openSimpleSettingField(field) {
       if (field === 'startWeight') {
@@ -1999,7 +2215,7 @@ if ($id('cfg-start-date'))$id('cfg-start-date').value = displayDate;
           <div class="space-y-4 py-2 select-none">
             <div class="relative h-44 bg-[#F8F7F5] rounded-2xl overflow-hidden flex flex-col items-center justify-center border border-slate-100 shadow-inner">
               <div class="absolute inset-x-3 top-1/2 -translate-y-1/2 h-11 bg-white rounded-xl pointer-events-none z-0 shadow-sm border border-[#EBE5E0]"></div>
-              <div id="height-wheel-container" class="w-full h-full overflow-y-scroll snap-y snap-mandatory hide-scrollbar relative z-10 py-16 text-center space-y-4 cursor-pointer" onscroll="handleHeightScroll(this)">
+              <div id="height-wheel-container" class="w-full h-full overflow-y-scroll overflow-x-hidden touch-pan-y snap-y snap-mandatory hide-scrollbar relative z-10 py-16 text-center space-y-4 cursor-pointer" onscroll="handleHeightScroll(this)">
                 ${Array.from({length: 401}, (_, i) => {
                   const val = parseFloat((140 + i * 0.1).toFixed(1));
                   return `<div data-val="${val}" class="h-10 flex items-center justify-center snap-center font-bold text-slate-400 text-sm transition-all duration-150">${val} cm</div>`;
@@ -2063,7 +2279,7 @@ if ($id('cfg-start-date'))$id('cfg-start-date').value = displayDate;
                 <div class="absolute inset-x-3 top-1/2 -translate-y-1/2 h-10 bg-white rounded-lg pointer-events-none z-0 shadow-sm border border-[#EBE5E0]"></div>
                 
                 <!-- 小時 (改用精準 padding: 56px 0;) -->
-                <div id="hour-wheel-container" class="h-full overflow-y-scroll snap-y snap-mandatory hide-scrollbar relative z-10 text-center space-y-4" style="padding: 56px 0;" onscroll="handleTimeScroll()">
+                <div id="hour-wheel-container" class="h-full overflow-y-scroll overflow-x-hidden touch-pan-y snap-y snap-mandatory hide-scrollbar relative z-10 text-center space-y-4" style="padding: 56px 0;" onscroll="handleTimeScroll()">
                   ${Array.from({length: 24}, (_, i) => {
                     const hr = String(i).padStart(2, '0');
                     return `<div data-hour="${hr}" class="h-8 flex items-center justify-center snap-center font-bold text-slate-400 text-sm transition-all duration-150">${hr}</div>`;
@@ -2071,7 +2287,7 @@ if ($id('cfg-start-date'))$id('cfg-start-date').value = displayDate;
                 </div>
                 
                 <!-- 分鐘 (改用精準 padding: 56px 0; 且限制為 15 分鐘一格) -->
-                <div id="minute-wheel-container" class="h-full overflow-y-scroll snap-y snap-mandatory hide-scrollbar relative z-10 text-center space-y-4" style="padding: 56px 0;" onscroll="handleTimeScroll()">
+                <div id="minute-wheel-container" class="h-full overflow-y-scroll overflow-x-hidden touch-pan-y snap-y snap-mandatory hide-scrollbar relative z-10 text-center space-y-4" style="padding: 56px 0;" onscroll="handleTimeScroll()">
                   ${[0, 15, 30, 45].map(i => {
                     const mn = String(i).padStart(2, '0');
                     return `<div data-min="${mn}" class="h-8 flex items-center justify-center snap-center font-bold text-slate-400 text-sm transition-all duration-150">${mn}</div>`;
@@ -2175,20 +2391,25 @@ if ($id('cfg-start-date'))$id('cfg-start-date').value = displayDate;
     // 可切換月份並點選日期的起始日互動月曆
     const _today = new Date();
 let modalCalendarYear = _today.getFullYear(), modalCalendarMonth = _today.getMonth();
-    function openSettingStartDatePicker() {
-      const p = window.appState.profile || {}, curDate = p.startDate || new Date().toISOString().split('T')[0];
-      const [y, m] = curDate.split('-').map(Number);
-      if (!isNaN(y)) modalCalendarYear = y;
-      if (!isNaN(m)) modalCalendarMonth = m - 1;
-      renderModalCalendar(curDate);
-    }
+let tempSelectedDateStr = null; // 💡 1. 在這裡新增了我們的「暫存箱」
+
+function openSettingStartDatePicker() {
+  const p = window.appState.profile || {}, curDate = p.startDate || new Date().toISOString().split('T')[0];
+  
+  tempSelectedDateStr = curDate; // 💡 2. 打開彈窗的瞬間，把抓到的日期放進暫存箱
+
+  const [y, m] = curDate.split('-').map(Number);
+  if (!isNaN(y)) modalCalendarYear = y;
+  if (!isNaN(m)) modalCalendarMonth = m - 1;
+  currentSimpleSettingField = 'startDate';
+  renderModalCalendar(tempSelectedDateStr); // 💡 3. 用「暫存箱」裡的日期來畫日曆
+}
 
     function changeModalCalendarMonth(delta) {
       modalCalendarMonth += delta;
       if (modalCalendarMonth > 11) { modalCalendarMonth = 0; modalCalendarYear++; }
       else if (modalCalendarMonth < 0) { modalCalendarMonth = 11; modalCalendarYear--; }
-      const curDate = document.getElementById('simple-set-start-date')?.value || new Date().toISOString().split('T')[0];
-      renderModalCalendar(curDate);
+      renderModalCalendar(tempSelectedDateStr); // 換月份時，繼續用暫存箱的日期畫日曆
     }
 
     function renderModalCalendar(selectedDateStr) {
@@ -2227,39 +2448,24 @@ let modalCalendarYear = _today.getFullYear(), modalCalendarMonth = _today.getMon
     }
 
     function selectModalStartDate(dStr) {
-  // 1. 直接更新 appState 裡的起始日
-  window.appState.profile.startDate = dStr;
+  tempSelectedDateStr = dStr; // 1. 放進暫存箱
+  renderModalCalendar(tempSelectedDateStr); // 2. 重新畫日曆，讓格子變色
+}
+function saveSettingStartDate() {
+  // 搬過來的第 1 部分：正式更新 appState
+  window.appState.profile.startDate = tempSelectedDateStr;
   
-  // 2. 儲存資料並重新整理各個畫面的顯示
-  saveState(); 
-  syncProfileModalUI(); 
-  renderAll(); 
+  // 搬過來的第 2 部分：儲存資料並重新整理畫面
+  saveState();
+  syncProfileModalUI();
+  renderAll();
   
-  // 3. 直接關閉彈窗，流暢又直覺！
-  closeModal('setting-item-modal'); 
-  
+  // 搬過來的第 3 部分：關閉彈窗並跳出提示
+  closeModal('setting-item-modal');
   showToast('起始日已更新');
 }
-    function selectModalGender(g) {
-      document.getElementById('simple-set-input').value = g;
-      ['生理女', '生理男'].forEach(val => {
-        const card = document.getElementById(`gender-card-${val}`);
-        if (!card) return;
-        const isSel = val === g;
-        card.className = `p-4 rounded-2xl border ${isSel ? 'border-[#D67262] bg-[#FAF0EE]' : 'border-slate-100 bg-white'} card-shadow flex items-center justify-between cursor-pointer transition`;
-        card.querySelector('div:last-child').className = `w-5 h-5 rounded-full border-2 ${isSel ? 'border-[#D67262] bg-[#D67262] flex items-center justify-center' : 'border-slate-300'}`;
-        card.querySelector('div:last-child').innerHTML = isSel ? '<div class="w-2 h-2 rounded-full bg-white"></div>' : '';
-      });
-    }
 
-    function adjustReminderDays(delta) {
-      const el = document.getElementById('reminder-days-val'), inp = document.getElementById('simple-set-days');
-      if (!el || !inp) return;
-      let cur = parseInt(el.innerText) + delta;
-      if (cur < 1) cur = 1;
-      el.innerText = cur;
-      inp.value = cur;
-    }
+  
 
     function saveSimpleSettingField() {
       const p = window.appState.profile;
@@ -2279,7 +2485,11 @@ let modalCalendarYear = _today.getFullYear(), modalCalendarMonth = _today.getMon
         p.intervalDays = d;
         p.reminderTime = $id('simple-set-time')?.value || '09:00';
      const sw = $id('reminder-enabled-switch');
-        p.reminderEnabled = sw ? sw.classList.contains('bg-[#D67262]') : true; }
+        p.reminderEnabled = sw ? sw.classList.contains('bg-[#D67262]') : true; 
+        } else if (currentSimpleSettingField === 'startDate') {
+    // 如果現在是在設定起始日，就把暫存箱的日期正式存起來
+    if (tempSelectedDateStr) p.startDate = tempSelectedDateStr;
+  }
       saveState(); syncProfileModalUI(); renderAll();
       closeModal('setting-item-modal'); showToast('設定已更新');
 
@@ -3811,79 +4021,149 @@ async function resetAllData() {
   alert('資料已全部清空，將為您重新載入畫面！');
   location.reload();
 }
-// ================= 新用戶引導流程 (Onboarding) 簡潔版 =================
+let currentObStep = 1;
+const totalObSteps = 9;
 let obSelectedGender = "";
 
 function setObGender(gender) {
     obSelectedGender = gender;
-    document.getElementById('ob-gender-F').className = gender === '生理女' 
-        ? "px-3 py-1.5 rounded-xl border border-[#D67262] bg-[#FAF0EE] text-[#D67262] text-xs font-bold transition shadow-sm"
-        : "px-3 py-1.5 rounded-xl border border-slate-200 text-slate-500 text-xs font-bold transition";
-    document.getElementById('ob-gender-M').className = gender === '生理男' 
-        ? "px-3 py-1.5 rounded-xl border border-[#D67262] bg-[#FAF0EE] text-[#D67262] text-xs font-bold transition shadow-sm"
-        : "px-3 py-1.5 rounded-xl border border-slate-200 text-slate-500 text-xs font-bold transition";
-}
-
-function goToOnboardingStep(step) {
-    document.getElementById('ob-step-1').classList.add('hidden');
-    document.getElementById('ob-step-2').classList.add('hidden');
-    document.getElementById(`ob-step-${step}`).classList.remove('hidden');
-}
-
-function finishOnboarding() {
-    // 直接抓取輸入框裡的數字
-    const h = parseFloat(document.getElementById('ob-height').value);
-    const w = parseFloat(document.getElementById('ob-weight').value);
-    const t = parseFloat(document.getElementById('ob-target').value);
+    const isF = gender === '生理女';
     
-    if (!obSelectedGender) {
+    // 生理女的卡片與圓圈
+    document.getElementById('ob-gender-card-F').className = isF 
+        ? "p-4 rounded-2xl border border-[#D67262] bg-[#FAF0EE] flex items-center justify-between cursor-pointer transition shadow-sm active:scale-[0.98]"
+        : "p-4 rounded-2xl border border-slate-200/80 bg-white flex items-center justify-between cursor-pointer transition shadow-sm active:scale-[0.98]";
+    document.getElementById('ob-radio-F').className = isF 
+        ? "w-6 h-6 rounded-full border-[6px] border-[#D67262] bg-white transition" 
+        : "w-6 h-6 rounded-full border-2 border-slate-300 transition";
+
+    // 生理男的卡片與圓圈
+    document.getElementById('ob-gender-card-M').className = !isF 
+        ? "p-4 rounded-2xl border border-[#D67262] bg-[#FAF0EE] flex items-center justify-between cursor-pointer transition shadow-sm active:scale-[0.98]"
+        : "p-4 rounded-2xl border border-slate-200/80 bg-white flex items-center justify-between cursor-pointer transition shadow-sm active:scale-[0.98]";
+    document.getElementById('ob-radio-M').className = !isF 
+        ? "w-6 h-6 rounded-full border-[6px] border-[#D67262] bg-white transition" 
+        : "w-6 h-6 rounded-full border-2 border-slate-300 transition";
+}
+
+function updateOnboardingUI() {
+    for (let i = 1; i <= totalObSteps; i++) {
+        const stepEl = document.getElementById(`ob-step-${i}`);
+        if (stepEl) stepEl.classList.toggle('hidden', i !== currentObStep);
+        
+        const dotEl = document.getElementById(`ob-dot-${i}`);
+        if (dotEl) {
+            dotEl.className = i === currentObStep 
+                ? "w-6 h-1 rounded-full bg-[#D67262] transition-all" 
+                : "w-1.5 h-1 rounded-full bg-slate-300 transition-all";
+        }
+    }
+
+    // 1. 控制整個底部導航列 (只有第 2 步和第 9 步會隱藏)
+    const globalNav = document.getElementById('ob-global-nav');
+    if (globalNav) {
+        globalNav.classList.toggle('hidden', currentObStep === 2 || currentObStep === 9);
+    }
+
+    // 2. 控制「上一步」按鈕 (第 1 步最前面沒東西，所以隱藏)
+    const prevBtn = document.getElementById('ob-btn-prev');
+    if (prevBtn) {
+        prevBtn.classList.toggle('hidden', currentObStep === 1);
+    }
+
+    // 3. 控制「下一步」按鈕文字
+    const nextBtn = document.getElementById('ob-btn-next');
+    if (nextBtn) {
+        nextBtn.innerText = currentObStep === totalObSteps ? "完成設定，開始旅程 🚀" : "下一步";
+    }
+
+    // 4. 各步驟的滾輪動畫初始化
+    if (currentObStep === 4) {
+        initObDateWheels();
+    } else if (currentObStep === 5) {
+        initObDoseWheel();
+    } else if (currentObStep === 6) {
+        initObWeightWheel();
+    } else if (currentObStep === 7) {
+        initObHeightWheel();
+    } else if (currentObStep === 8) {
+        initObTargetWheel();
+    }
+}
+// 💡 點到第四步時，自動滾動滾輪到今天的日期
+    if (currentObStep === 4) {
+        initObDateWheels();
+    }
+
+function onboardingNextStep() {
+    if (currentObStep === 3 && !obSelectedGender) {
         showToast('請先選擇您的性別喔！');
         return;
     }
-
-    // 儲存資料
-    window.appState.profile.gender = obSelectedGender;
-    if (h > 0) window.appState.profile.height = h;
-    if (w > 0) window.appState.profile.startWeight = w;
-    if (t > 0) window.appState.profile.targetWeight = t;
-    
-    // 起始日如果沒設定，就抓今天
-    if (!window.appState.profile.startDate || window.appState.profile.startDate === "尚未設定") {
-        const now = new Date();
-        const y = now.getFullYear();
-        const m = String(now.getMonth() + 1).padStart(2, '0');
-        const d = String(now.getDate()).padStart(2, '0');
-        window.appState.profile.startDate = `${y}-${m}-${d}`;
+    if (currentObStep < totalObSteps) {
+        currentObStep++;
+        updateOnboardingUI();
+    } else {
+        finishOnboarding();
     }
-    
+}
+
+function onboardingPrevStep() {
+    if (currentObStep > 1) {
+        currentObStep--;
+        updateOnboardingUI();
+    }
+}
+
+function finishOnboarding() {
+    // 收集資料並寫入 appState
+    const days = parseInt(document.getElementById('ob-interval-days')?.value) || 7;
+    const startDate = getObSelectedDateStr();
+    const dose = window.obSelectedDose || "2.5";
+    const startWt = parseFloat(window.obSelectedWeight) || 70.0;
+    const height = parseFloat(window.obSelectedHeight) || 170.0;
+    const targetWt = parseFloat(window.obSelectedTarget) || 50.0;
+
+    const p = window.appState.profile;
+    if (obSelectedGender) p.gender = obSelectedGender;
+    if (days > 0) p.intervalDays = days;
+    if (startDate) p.startDate = startDate;
+    if (!isNaN(startWt) && startWt > 0) p.startWeight = startWt;
+    if (!isNaN(height) && height > 0) p.height = height;
+    if (!isNaN(targetWt) && targetWt > 0) p.targetWeight = targetWt;
+
+    // 自動把起始體重加進去 weights 列表第一筆
+    if (!isNaN(startWt) && startWt > 0 && (!window.appState.weights || window.appState.weights.length === 0)) {
+        window.appState.weights = [{ id: Date.now(), date: startDate, weight: startWt, fatPct: 0, musclePct: 0, dose: parseFloat(dose) || 2.5 }];
+    }
+
+    // 自動把起始劑量加進 injections 列表
+    if (dose && (!window.appState.injections || window.appState.injections.length === 0)) {
+        window.appState.injections = [{ id: Date.now(), date: startDate, drug: "猛健樂 Mounjaro", dose: dose, site: "右上腹", notes: "初始用藥" }];
+    }
+
     saveState();
     syncProfileModalUI();
     renderAll();
     closeModal('onboarding-modal');
-    showToast('設定完成，準備就緒！🎉');
+    showToast('設定完成，專屬健康旅程開始！🎉');
 }
 
 function checkNewUserOnboarding() {
     const p = window.appState.profile || {};
     const hasWeights = (window.appState.weights || []).length > 0;
     const hasStartWeight = p.startWeight && p.startWeight > 0;
-    
     if (!hasWeights && !hasStartWeight) {
         setTimeout(() => {
-            goToOnboardingStep(1);
+            currentObStep = 1;
+            updateOnboardingUI();
+            const dateInp = document.getElementById('ob-start-date');
+            if (dateInp) dateInp.value = toLocalDateStr(new Date());
             openModal('onboarding-modal');
         }, 800);
     }
 }
 
-function checkNewUserOnboarding() {
-    const p = window.appState.profile || {};
-    const hasWeights = (window.appState.weights || []).length > 0;
-    const hasStartWeight = p.startWeight && p.startWeight > 0;
-    if (!hasWeights && !hasStartWeight) {
-        setTimeout(() => { goToOnboardingStep(1); openModal('onboarding-modal'); }, 800);
-    }
-}
 // ================= 電腦版滑鼠拖曳滾動支援 (平滑防抖升級版) =================
 document.addEventListener('mousedown', (e) => {
   const scrollContainer = e.target.closest('.overflow-y-scroll, .hide-scrollbar');
@@ -3916,6 +4196,400 @@ document.addEventListener('mousedown', (e) => {
 
   document.addEventListener('mousemove', onMouseMove);
   document.addEventListener('mouseup', onMouseUp);
+});
+// ================= iOS 滾輪日期選擇器 (滿血動態生成版) =================
+let obSelectedYear = new Date().getFullYear();
+let obSelectedMonth = new Date().getMonth() + 1;
+let obSelectedDay = new Date().getDate();
+
+window.initObDateWheels = function() {
+    const today = new Date();
+    const currentY = today.getFullYear();
+    
+    // --- 1. 動態產生年份 (從前 2 年到未來 10 年) ---
+    const yearContainer = document.getElementById('ob-wheel-year');
+    if (yearContainer && yearContainer.children.length === 0) {
+        let yearHtml = '';
+        for (let y = currentY - 2; y <= currentY + 10; y++) {
+            yearHtml += `<div data-val="${y}" class="h-9 flex items-center justify-center snap-center font-bold text-slate-400 text-sm transition-all duration-150">${y} 年</div>`;
+        }
+        yearContainer.innerHTML = yearHtml;
+    }
+
+    // --- 2. 動態產生月份 ---
+    const monthContainer = document.getElementById('ob-wheel-month');
+    if (monthContainer && monthContainer.children.length === 0) {
+        let monthHtml = '';
+        for (let m = 1; m <= 12; m++) {
+            monthHtml += `<div data-val="${m}" class="h-9 flex items-center justify-center snap-center font-bold text-slate-400 text-sm transition-all duration-150">${m} 月</div>`;
+        }
+        monthContainer.innerHTML = monthHtml;
+    }
+
+    // --- 3. 動態產生日期 ---
+    const dayContainer = document.getElementById('ob-wheel-day');
+    if (dayContainer && dayContainer.children.length === 0) {
+        let dayHtml = '';
+        for (let d = 1; d <= 31; d++) {
+            dayHtml += `<div data-val="${d}" class="h-9 flex items-center justify-center snap-center font-bold text-slate-400 text-sm transition-all duration-150">${d} 日</div>`;
+        }
+        dayContainer.innerHTML = dayHtml;
+    }
+
+    // --- 4. 智慧重試與置中定位 ---
+    let retryCount = 0;
+    function tryScroll() {
+        if (!yearContainer || yearContainer.clientHeight === 0) {
+            retryCount++;
+            if (retryCount < 20) setTimeout(tryScroll, 50);
+            return;
+        }
+
+        obSelectedYear = currentY;
+        obSelectedMonth = today.getMonth() + 1;
+        obSelectedDay = today.getDate();
+
+        const targets = [
+            { type: 'year', val: obSelectedYear },
+            { type: 'month', val: obSelectedMonth },
+            { type: 'day', val: obSelectedDay }
+        ];
+
+        targets.forEach(t => {
+            const container = document.getElementById(`ob-wheel-${t.type}`);
+            if (container) {
+                const targetEl = container.querySelector(`[data-val="${t.val}"]`);
+                if (targetEl) {
+                    // 精準置中
+                    container.scrollTop = targetEl.offsetTop - (container.clientHeight / 2) + (targetEl.clientHeight / 2);
+                }
+            }
+        });
+    }
+    
+    // 啟動智慧滾動
+    tryScroll();
+};
+// 滾輪滾動時自動計算當前選中的數值，並加上放大變色視覺效果
+let obScrollTimers = {};
+function handleObDateScroll(type) {
+    if (obScrollTimers[type]) clearTimeout(obScrollTimers[type]);
+    obScrollTimers[type] = setTimeout(() => {
+        const container = document.getElementById(`ob-wheel-${type}`);
+        if (!container) return;
+        const centerPos = container.scrollTop + container.clientHeight / 2;
+        let closest = null, minDist = Infinity;
+        
+        for (let child of container.children) {
+            const dist = Math.abs((child.offsetTop + child.clientHeight / 2) - centerPos);
+            if (dist < minDist) { minDist = dist; closest = child; }
+        }
+        
+        if (closest) {
+            // 💡 修正：加上移除所有高亮，並把最中間的元素加粗放大的邏輯
+            Array.from(container.children).forEach(c => c.className = "h-9 flex items-center justify-center snap-center font-bold text-slate-400 text-sm transition-all duration-150");
+            closest.className = "h-9 flex items-center justify-center snap-center font-black text-slate-800 text-base scale-105 transition-all duration-150";
+            
+            const val = parseInt(closest.getAttribute('data-val'));
+            if (type === 'year') obSelectedYear = val;
+            if (type === 'month') obSelectedMonth = val;
+            if (type === 'day') obSelectedDay = val;
+        }
+    }, 50);
+}
+
+// 輸出最終抓到的日期字串 (YYYY-MM-DD)
+function getObSelectedDateStr() {
+    const mStr = String(obSelectedMonth).padStart(2, '0');
+    const dStr = String(obSelectedDay).padStart(2, '0');
+    return `${obSelectedYear}-${mStr}-${dStr}`;
+}
+// ================= iOS 滾輪劑量選擇器 (第五步專用) =================
+window.obSelectedDose = "2.5";
+let obDoseScrollTimer = null;
+
+window.initObDoseWheel = function() {
+    const container = document.getElementById('ob-wheel-dose');
+    
+    // 1. 動態生成劑量選項 (從 0.25 到 15.0，並特別加入 Wegovy 常用的 2.4)
+    if (container && container.children.length === 0) {
+        const doseList = [];
+        for (let i = 0.25; i <= 15; i += 0.25) {
+            if (i === 2.5 && !doseList.includes(2.4)) doseList.push(2.4);
+            doseList.push(i);
+        }
+        const finalDoses = [...new Set(doseList)].sort((a,b) => a - b);
+        
+        let doseHtml = '';
+        finalDoses.forEach(d => {
+            doseHtml += `<div data-val="${d}" class="h-10 flex items-center justify-center snap-center font-bold text-slate-400 text-lg transition-all duration-150">${d}</div>`;
+        });
+        container.innerHTML = doseHtml;
+    }
+
+    // 2. 動態更新副標題的日期字串
+    const subtitle = document.getElementById('ob-step-5-subtitle');
+    if (subtitle) {
+        subtitle.innerText = `${obSelectedYear}年${obSelectedMonth}月${obSelectedDay}日注射劑量`;
+    }
+
+    // 3. 智慧重試與置中對齊 (預設對齊 2.5mg)
+    let retryCount = 0;
+    function tryScrollDose() {
+        if (!container || container.clientHeight === 0) {
+            retryCount++;
+            if (retryCount < 20) setTimeout(tryScrollDose, 50);
+            return;
+        }
+        const targetEl = container.querySelector(`[data-val="${obSelectedDose}"]`) || container.querySelector(`[data-val="2.5"]`);
+        if (targetEl) {
+            container.scrollTop = targetEl.offsetTop - (container.clientHeight / 2) + (targetEl.clientHeight / 2);
+        }
+    }
+    tryScrollDose();
+};
+
+window.handleObDoseScroll = function() {
+    if (obDoseScrollTimer) clearTimeout(obDoseScrollTimer);
+    obDoseScrollTimer = setTimeout(() => {
+        const container = document.getElementById('ob-wheel-dose');
+        if (!container) return;
+        const centerPos = container.scrollTop + container.clientHeight / 2;
+        let closest = null, minDist = Infinity;
+        
+        for (let child of container.children) {
+            const dist = Math.abs((child.offsetTop + child.clientHeight / 2) - centerPos);
+            if (dist < minDist) { minDist = dist; closest = child; }
+        }
+        
+        if (closest) {
+            Array.from(container.children).forEach(c => c.className = "h-10 flex items-center justify-center snap-center font-bold text-slate-400 text-lg transition-all duration-150");
+            closest.className = "h-10 flex items-center justify-center snap-center font-black text-slate-800 text-2xl scale-105 transition-all duration-150";
+            
+            window.obSelectedDose = closest.getAttribute('data-val');
+        }
+    }, 50);
+};
+// ================= iOS 滾輪體重選擇器 (第六步專用) =================
+window.obSelectedWeight = "70"; 
+let obWeightScrollTimer = null;
+
+window.initObWeightWheel = function() {
+    const container = document.getElementById('ob-wheel-weight');
+    const subtitle = document.getElementById('ob-step-6-subtitle');
+    if (subtitle) { subtitle.innerText = `${obSelectedMonth}月${obSelectedDay}日`; }
+
+    if (container && container.children.length === 0) {
+        let weightHtml = '';
+        for (let i = 300; i <= 1500; i++) {
+            const wNum = i / 10;
+            // 💡 判斷如果是整數，就不加上 .0
+            const wStr = Number.isInteger(wNum) ? wNum.toString() : wNum.toFixed(1);
+            weightHtml += `<div data-val="${wNum}" class="h-10 flex items-center justify-center snap-center font-bold text-slate-400 text-xl transition-all duration-150">${wStr}</div>`;
+        }
+        container.innerHTML = weightHtml;
+    }
+
+    let retryCount = 0;
+    function tryScrollWeight() {
+        if (!container || container.clientHeight === 0) {
+            retryCount++;
+            if (retryCount < 20) setTimeout(tryScrollWeight, 50);
+            return;
+        }
+        // 確保尋找的數值是轉換後的乾淨數值 (如 70 而非 70.0)
+        const targetVal = parseFloat(window.obSelectedWeight) || 70;
+        const targetEl = container.querySelector(`[data-val="${targetVal}"]`);
+        if (targetEl) {
+            container.scrollTop = targetEl.offsetTop - (container.clientHeight / 2) + (targetEl.clientHeight / 2);
+        }
+    }
+    tryScrollWeight();
+};
+
+window.handleObWeightScroll = function() {
+    if (obWeightScrollTimer) clearTimeout(obWeightScrollTimer);
+    obWeightScrollTimer = setTimeout(() => {
+        const container = document.getElementById('ob-wheel-weight');
+        if (!container) return;
+        const centerPos = container.scrollTop + container.clientHeight / 2;
+        let closest = null, minDist = Infinity;
+        for (let child of container.children) {
+            const dist = Math.abs((child.offsetTop + child.clientHeight / 2) - centerPos);
+            if (dist < minDist) { minDist = dist; closest = child; }
+        }
+        if (closest) {
+            Array.from(container.children).forEach(c => c.className = "h-10 flex items-center justify-center snap-center font-bold text-slate-400 text-xl transition-all duration-150");
+            closest.className = "h-10 flex items-center justify-center snap-center font-black text-slate-800 text-3xl scale-105 transition-all duration-150";
+            window.obSelectedWeight = closest.getAttribute('data-val');
+        }
+    }, 50);
+};
+
+// ================= iOS 滾輪身高選擇器 (第七步專用) =================
+window.obSelectedHeight = "170"; 
+let obHeightScrollTimer = null;
+
+window.initObHeightWheel = function() {
+    const container = document.getElementById('ob-wheel-height');
+    
+    if (container && container.children.length === 0) {
+        let heightHtml = '';
+        for (let i = 1000; i <= 2500; i++) {
+            const hNum = i / 10;
+            // 💡 判斷如果是整數，就不加上 .0
+            const hStr = Number.isInteger(hNum) ? hNum.toString() : hNum.toFixed(1);
+            heightHtml += `<div data-val="${hNum}" class="h-10 flex items-center justify-center snap-center font-bold text-slate-400 text-xl transition-all duration-150">${hStr}</div>`;
+        }
+        container.innerHTML = heightHtml;
+    }
+
+    let retryCount = 0;
+    function tryScrollHeight() {
+        if (!container || container.clientHeight === 0) {
+            retryCount++;
+            if (retryCount < 20) setTimeout(tryScrollHeight, 50);
+            return;
+        }
+        const targetVal = parseFloat(window.obSelectedHeight) || 170;
+        const targetEl = container.querySelector(`[data-val="${targetVal}"]`);
+        if (targetEl) {
+            container.scrollTop = targetEl.offsetTop - (container.clientHeight / 2) + (targetEl.clientHeight / 2);
+        }
+    }
+    tryScrollHeight();
+};
+
+window.handleObHeightScroll = function() {
+    if (obHeightScrollTimer) clearTimeout(obHeightScrollTimer);
+    obHeightScrollTimer = setTimeout(() => {
+        const container = document.getElementById('ob-wheel-height');
+        if (!container) return;
+        const centerPos = container.scrollTop + container.clientHeight / 2;
+        let closest = null, minDist = Infinity;
+        for (let child of container.children) {
+            const dist = Math.abs((child.offsetTop + child.clientHeight / 2) - centerPos);
+            if (dist < minDist) { minDist = dist; closest = child; }
+        }
+        if (closest) {
+            Array.from(container.children).forEach(c => c.className = "h-10 flex items-center justify-center snap-center font-bold text-slate-400 text-xl transition-all duration-150");
+            closest.className = "h-10 flex items-center justify-center snap-center font-black text-slate-800 text-3xl scale-105 transition-all duration-150";
+            window.obSelectedHeight = closest.getAttribute('data-val');
+        }
+    }, 50);
+};
+// ================= iOS 滾輪目標體重選擇器 (第八步專用) =================
+window.obSelectedTarget = "50"; // 預設目標體重
+let obTargetScrollTimer = null;
+
+window.initObTargetWheel = function() {
+    const container = document.getElementById('ob-wheel-target');
+    
+    // 1. 動態生成目標體重選項 (從 30 到 150，間隔 0.5，整數不顯示小數點)
+    if (container && container.children.length === 0) {
+        let targetHtml = '';
+        // 迴圈每次加 5 代表 0.5 (因為 300 / 10 = 30.0)
+        for (let i = 300; i <= 1500; i += 5) {
+            const wNum = i / 10;
+            // 如果是整數，就轉成字串(不帶.0)，如果有小數就保留小數點後一位
+            const wStr = Number.isInteger(wNum) ? wNum.toString() : wNum.toFixed(1);
+            targetHtml += `<div data-val="${wNum}" class="h-10 flex items-center justify-center snap-center font-bold text-slate-400 text-xl transition-all duration-150">${wStr}</div>`;
+        }
+        container.innerHTML = targetHtml;
+    }
+
+    // 2. 智慧重試與置中對齊 (預設對齊 50 kg)
+    let retryCount = 0;
+    function tryScrollTarget() {
+        if (!container || container.clientHeight === 0) {
+            retryCount++;
+            if (retryCount < 20) setTimeout(tryScrollTarget, 50);
+            return;
+        }
+        const targetEl = container.querySelector(`[data-val="${window.obSelectedTarget}"]`);
+        if (targetEl) {
+            container.scrollTop = targetEl.offsetTop - (container.clientHeight / 2) + (targetEl.clientHeight / 2);
+        }
+    }
+    tryScrollTarget();
+};
+
+window.handleObTargetScroll = function() {
+    if (obTargetScrollTimer) clearTimeout(obTargetScrollTimer);
+    obTargetScrollTimer = setTimeout(() => {
+        const container = document.getElementById('ob-wheel-target');
+        if (!container) return;
+        const centerPos = container.scrollTop + container.clientHeight / 2;
+        let closest = null, minDist = Infinity;
+        
+        for (let child of container.children) {
+            const dist = Math.abs((child.offsetTop + child.clientHeight / 2) - centerPos);
+            if (dist < minDist) { minDist = dist; closest = child; }
+        }
+        
+        if (closest) {
+            Array.from(container.children).forEach(c => c.className = "h-10 flex items-center justify-center snap-center font-bold text-slate-400 text-xl transition-all duration-150");
+            // 中間高亮的字體變黑、放大
+            closest.className = "h-10 flex items-center justify-center snap-center font-black text-slate-800 text-3xl scale-105 transition-all duration-150";
+            
+            window.obSelectedTarget = closest.getAttribute('data-val');
+        }
+    }, 50);
+};
+// ================= 底部彈窗下滑手勢支援 (Swipe-to-Close) =================
+document.addEventListener('DOMContentLoaded', () => {
+  // 找出所有具備由下往上動畫效果的彈窗面板
+  const modalSheets = document.querySelectorAll('.modal-sheet-anim');
+  
+  modalSheets.forEach(sheet => {
+    let startY = 0;
+    let currentY = 0;
+    let isDragging = false;
+
+    // 觸控開始
+    sheet.addEventListener('touchstart', (e) => {
+      // 只有當使用者點擊頂部附近（把手區域）或確定沒有在內部捲動時才允許下拉
+      const scrollTop = sheet.scrollTop;
+      if (scrollTop <= 0) {
+        startY = e.touches[0].clientY;
+        isDragging = true;
+        sheet.style.transition = 'none'; // 拖曳時取消動畫延遲
+      }
+    }, { passive: true });
+
+    // 觸控移動
+    sheet.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      currentY = e.touches[0].clientY;
+      const diffY = currentY - startY;
+      
+      // 限制只能往下拉，不能往上推
+      if (diffY > 0) {
+        sheet.style.transform = `translate3d(0, ${diffY}px, 0)`;
+      }
+    }, { passive: true });
+
+    // 觸控結束
+    sheet.addEventListener('touchend', (e) => {
+      if (!isDragging) return;
+      isDragging = false;
+      sheet.style.transition = 'transform 0.38s cubic-bezier(0.32, 0.72, 0, 1)';
+      
+      const diffY = currentY - startY;
+      // 如果往下拉超過 110px，就直接觸發關閉該彈窗
+      if (diffY > 110) {
+        // 找出外層的 backdrop 容器並關閉
+        const backdrop = sheet.closest('.modal-backdrop-anim');
+        if (backdrop) {
+          const modalId = backdrop.getAttribute('id');
+          if (modalId) closeModal(modalId);
+        }
+      } else {
+        // 否則彈回原本的位置
+        sheet.style.transform = 'translate3d(0, 0, 0)';
+      }
+    });
+  });
 });
   </script>
 </body>
