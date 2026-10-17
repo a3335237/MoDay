@@ -4536,60 +4536,99 @@ window.handleObTargetScroll = function() {
         }
     }, 50);
 };
-// ================= 底部彈窗下滑手勢支援 (Swipe-to-Close) =================
+// ================= 完美的底部彈窗下滑手勢與狀態修復 =================
 document.addEventListener('DOMContentLoaded', () => {
-  // 找出所有具備由下往上動畫效果的彈窗面板
-  const modalSheets = document.querySelectorAll('.modal-sheet-anim');
+  const modalBackdrops = document.querySelectorAll('.modal-backdrop-anim');
   
-  modalSheets.forEach(sheet => {
+  modalBackdrops.forEach(backdrop => {
+    const sheet = backdrop.querySelector('.modal-sheet-anim');
+    if (!sheet) return;
+
     let startY = 0;
     let currentY = 0;
     let isDragging = false;
 
-    // 觸控開始
     sheet.addEventListener('touchstart', (e) => {
-      // 只有當使用者點擊頂部附近（把手區域）或確定沒有在內部捲動時才允許下拉
-      const scrollTop = sheet.scrollTop;
-      if (scrollTop <= 0) {
+      // 只有當捲軸在最頂端時，才允許下拉手勢
+      if (sheet.scrollTop <= 0) {
         startY = e.touches[0].clientY;
         isDragging = true;
-        sheet.style.transition = 'none'; // 拖曳時取消動畫延遲
+        sheet.style.transition = 'none';
       }
     }, { passive: true });
 
-    // 觸控移動
     sheet.addEventListener('touchmove', (e) => {
       if (!isDragging) return;
       currentY = e.touches[0].clientY;
       const diffY = currentY - startY;
       
-      // 限制只能往下拉，不能往上推
       if (diffY > 0) {
+        // 💡 阻止事件冒泡，絕對不讓背景跟著滑動！
+        e.stopPropagation();
         sheet.style.transform = `translate3d(0, ${diffY}px, 0)`;
       }
-    }, { passive: true });
+    }, { passive: false });
 
-    // 觸控結束
     sheet.addEventListener('touchend', (e) => {
       if (!isDragging) return;
       isDragging = false;
       sheet.style.transition = 'transform 0.38s cubic-bezier(0.32, 0.72, 0, 1)';
       
       const diffY = currentY - startY;
-      // 如果往下拉超過 110px，就直接觸發關閉該彈窗
-      if (diffY > 110) {
-        // 找出外層的 backdrop 容器並關閉
-        const backdrop = sheet.closest('.modal-backdrop-anim');
-        if (backdrop) {
-          const modalId = backdrop.getAttribute('id');
-          if (modalId) closeModal(modalId);
-        }
+      if (diffY > 100) {
+        // 下拉超過 100px，關閉彈窗
+        const modalId = backdrop.getAttribute('id');
+        if (modalId) closeModal(modalId);
       } else {
-        // 否則彈回原本的位置
+        // 彈回原位
         sheet.style.transform = 'translate3d(0, 0, 0)';
       }
     });
   });
+});
+
+// 💡 確保每次呼叫 openModal 時，強制把彈窗的 transform 歸零，解決「下次打開卡在下面」的問題
+const originalOpenModal = window.openModal;
+window.openModal = function(id) {
+  if (originalOpenModal) originalOpenModal(id);
+  const el = document.getElementById(id);
+  if (el) {
+    const sheet = el.querySelector('.modal-sheet-anim');
+    if (sheet) {
+      sheet.style.transition = 'none';
+      sheet.style.transform = 'translate3d(0, 105%, 0)';
+      void sheet.offsetWidth;
+      sheet.style.transition = 'transform 0.38s cubic-bezier(0.32, 0.72, 0, 1)';
+      sheet.style.transform = 'translate3d(0, 0, 0)';
+    }
+  }
+};
+
+// 💡 確保每次呼叫 closeModal 時，順便把 transform 歸零重置
+const originalCloseModal = window.closeModal;
+window.closeModal = function(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    const sheet = el.querySelector('.modal-sheet-anim');
+    if (sheet) {
+      sheet.style.transform = 'translate3d(0, 105%, 0)';
+    }
+  }
+  if (originalCloseModal) originalCloseModal(id);
+};
+// ================= 支援按下 Esc 鍵關閉所有開啟中的彈窗 =================
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    // 找出所有沒有被加上 hidden 的彈窗容器
+    const openModals = document.querySelectorAll('.modal-backdrop-anim:not(.hidden)');
+    
+    openModals.forEach(modal => {
+      const modalId = modal.getAttribute('id');
+      if (modalId) {
+        closeModal(modalId);
+      }
+    });
+  }
 });
   </script>
 </body>
