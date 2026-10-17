@@ -2061,20 +2061,23 @@ if ($id('cfg-start-date'))$id('cfg-start-date').value = displayDate;
               </div>
               <div class="grid grid-cols-2 gap-2 relative h-36 bg-[#F8F7F5] rounded-xl overflow-hidden border border-slate-100 shadow-inner">
                 <div class="absolute inset-x-3 top-1/2 -translate-y-1/2 h-10 bg-white rounded-lg pointer-events-none z-0 shadow-sm border border-[#EBE5E0]"></div>
-                <!-- 小時 -->
-                <div id="hour-wheel-container" class="h-full overflow-y-scroll snap-y snap-mandatory hide-scrollbar relative z-10 py-12 text-center space-y-4" onscroll="handleTimeScroll()">
+                
+                <!-- 小時 (改用精準 padding: 56px 0;) -->
+                <div id="hour-wheel-container" class="h-full overflow-y-scroll snap-y snap-mandatory hide-scrollbar relative z-10 text-center space-y-4" style="padding: 56px 0;" onscroll="handleTimeScroll()">
                   ${Array.from({length: 24}, (_, i) => {
                     const hr = String(i).padStart(2, '0');
-                    return `<div data-hour="${hr}" class="h-8 flex items-center justify-center snap-center font-bold text-slate-400 text-sm">${hr}</div>`;
+                    return `<div data-hour="${hr}" class="h-8 flex items-center justify-center snap-center font-bold text-slate-400 text-sm transition-all duration-150">${hr}</div>`;
                   }).join('')}
                 </div>
-                <!-- 分鐘 -->
-                <div id="minute-wheel-container" class="h-full overflow-y-scroll snap-y snap-mandatory hide-scrollbar relative z-10 py-12 text-center space-y-4" onscroll="handleTimeScroll()">
-                  ${Array.from({length: 60}, (_, i) => {
+                
+                <!-- 分鐘 (改用精準 padding: 56px 0; 且限制為 15 分鐘一格) -->
+                <div id="minute-wheel-container" class="h-full overflow-y-scroll snap-y snap-mandatory hide-scrollbar relative z-10 text-center space-y-4" style="padding: 56px 0;" onscroll="handleTimeScroll()">
+                  ${[0, 15, 30, 45].map(i => {
                     const mn = String(i).padStart(2, '0');
-                    return `<div data-min="${mn}" class="h-8 flex items-center justify-center snap-center font-bold text-slate-400 text-sm">${mn}</div>`;
+                    return `<div data-min="${mn}" class="h-8 flex items-center justify-center snap-center font-bold text-slate-400 text-sm transition-all duration-150">${mn}</div>`;
                   }).join('')}
                 </div>
+              </div>
               </div>
             </div>
           </div>
