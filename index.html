@@ -18,6 +18,12 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    /* 當彈窗打開時，鎖定背景不讓它滾動 */
+body.modal-open-lock {
+  overflow: hidden !important;
+  position: fixed;
+  width: 100%;
+}
     /* ================= 鼴大叔萌日生活・全域大地色系變數 ================= */
     :root {
       --mole-bg: #FAF7F2;         /* 全局背景：溫潤奶茶白 */
@@ -4536,7 +4542,7 @@ window.handleObTargetScroll = function() {
         }
     }, 50);
 };
-// ================= 完美的底部彈窗下滑手勢與狀態修復 =================
+// ================= 完美的底部彈窗下滑手勢與背景鎖定 =================
 document.addEventListener('DOMContentLoaded', () => {
   const modalBackdrops = document.querySelectorAll('.modal-backdrop-anim');
   
@@ -4549,7 +4555,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let isDragging = false;
 
     sheet.addEventListener('touchstart', (e) => {
-      // 只有當捲軸在最頂端時，才允許下拉手勢
       if (sheet.scrollTop <= 0) {
         startY = e.touches[0].clientY;
         isDragging = true;
@@ -4563,8 +4568,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const diffY = currentY - startY;
       
       if (diffY > 0) {
-        // 💡 阻止事件冒泡，絕對不讓背景跟著滑動！
-        e.stopPropagation();
+        // 💡 關鍵：強制阻止瀏覽器預設滾動，徹底鎖死背景！
+        e.preventDefault();
         sheet.style.transform = `translate3d(0, ${diffY}px, 0)`;
       }
     }, { passive: false });
@@ -4576,21 +4581,21 @@ document.addEventListener('DOMContentLoaded', () => {
       
       const diffY = currentY - startY;
       if (diffY > 100) {
-        // 下拉超過 100px，關閉彈窗
         const modalId = backdrop.getAttribute('id');
         if (modalId) closeModal(modalId);
       } else {
-        // 彈回原位
         sheet.style.transform = 'translate3d(0, 0, 0)';
       }
     });
   });
 });
 
-// 💡 確保每次呼叫 openModal 時，強制把彈窗的 transform 歸零，解決「下次打開卡在下面」的問題
+// 💡 每次打開彈窗時，自動幫 body 加上鎖定，並重置動畫位置
 const originalOpenModal = window.openModal;
 window.openModal = function(id) {
   if (originalOpenModal) originalOpenModal(id);
+  document.body.classList.add('modal-open-lock');
+  
   const el = document.getElementById(id);
   if (el) {
     const sheet = el.querySelector('.modal-sheet-anim');
@@ -4604,7 +4609,7 @@ window.openModal = function(id) {
   }
 };
 
-// 💡 確保每次呼叫 closeModal 時，順便把 transform 歸零重置
+// 💡 每次關閉彈窗時，解開 body 的鎖定
 const originalCloseModal = window.closeModal;
 window.closeModal = function(id) {
   const el = document.getElementById(id);
@@ -4615,6 +4620,12 @@ window.closeModal = function(id) {
     }
   }
   if (originalCloseModal) originalCloseModal(id);
+  
+  // 檢查是不是所有彈窗都關了，如果是就解除 body 鎖定
+  const remainingOpen = document.querySelectorAll('.modal-backdrop-anim:not(.hidden)');
+  if (remainingOpen.length <= 1) {
+    document.body.classList.remove('modal-open-lock');
+  }
 };
 // ================= 支援按下 Esc 鍵關閉所有開啟中的彈窗 =================
 document.addEventListener('keydown', (e) => {
