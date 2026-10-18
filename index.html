@@ -3650,7 +3650,8 @@ function saveSettingStartDate() {
         const nextDate = parseLocalDate(injs[0].date);
         nextDate.setDate(nextDate.getDate() + interval);
         const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-        const cd = Math.max(0, Math.ceil((nextDate.getTime() - today.getTime()) / 86400000));
+        const nextOnly = new Date(nextDate.getFullYear(), nextDate.getMonth(), nextDate.getDate());
+      const cd = Math.max(0, Math.round((nextOnly.getTime() - today.getTime()) / 86400000));
         $txt('home-inj-countdown', cd); $txt('inj-countdown-days', cd);$txt('inj-next-date-label', `${nextDate.getMonth()+1}月${nextDate.getDate()}日 (${weekMap[nextDate.getDay()]})`);
       } else {
         const nextDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + interval);
