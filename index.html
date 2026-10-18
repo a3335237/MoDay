@@ -88,7 +88,85 @@ body.modal-open-lock {
   </style>
 </head>
 <body class="min-h-screen pb-32 select-none">
+ 
+  <!-- 全螢幕 Splash Loading 畫面 -->
+<style>
+  #loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #FAF7F2; /* 主色系：溫潤奶茶白 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999; /* 蓋在最上層 */
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+  }
 
+  .loading-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .loading-icon {
+    width: 220px;
+    height: 220px;
+    object-fit: contain;
+    margin-bottom: 20px;
+  }
+
+  .loading-title {
+    color: #3E2723; /* 主標題：沉穩深咖啡 */
+    font-size: 42px;
+    font-weight: bold;
+    font-family: 'Fredoka', 'M PLUS Rounded 1c', system-ui, sans-serif;
+    margin: 0 0 8px 0;
+  }
+
+  .loading-subtitle {
+    color: #7D5A50; /* 副標題：溫暖柔和棕 */
+    font-size: 15px;
+    font-family: 'Noto Sans TC', system-ui, sans-serif;
+    margin: 0;
+  }
+
+  #loading-screen.fade-out {
+    opacity: 0;
+    visibility: hidden;
+  }
+</style>
+
+<div id="loading-screen">
+  <div class="loading-content">
+    <img src="./墨鏡鼴鼠吃沙拉.png" alt="MoDay App Icon" class="loading-icon" />
+    <h1 class="loading-title">MoDay</h1>
+    <p class="loading-subtitle">鼴大叔陪你萌日記錄 · 療程施打與健康生活</p>
+  </div>
+</div>
+
+<script>
+  // 等待網頁結構載入，且「自訂字型」全部下載完畢後才關閉 Loading
+  window.addEventListener('DOMContentLoaded', () => {
+    const loadingScreen = document.getElementById('loading-screen');
+    
+    if (loadingScreen) {
+      // 確保字型載入完成才執行動畫
+      document.fonts.ready.then(() => {
+        // 給一點極短的緩衝，讓畫面更穩定
+        setTimeout(() => {
+          loadingScreen.classList.add('fade-out');
+          setTimeout(() => {
+            loadingScreen.remove();
+          }, 400);
+        }, 100);
+      });
+    }
+  });
+</script>
   <!-- 提示 Toast & 喝水達標慶祝卡片 -->
   <div id="toast-msg" class="fixed top-4 left-1/2 -translate-x-1/2 z-[80] bg-slate-800 text-white text-xs px-4 py-2 rounded-full shadow-lg transition-opacity duration-300 opacity-0 pointer-events-none whitespace-nowrap">操作成功</div>
   <div id="water-goal-toast" class="fixed left-1/2 top-[53%] -translate-x-1/2 -translate-y-1/2 z-[60] w-[270px] py-6 px-5 rounded-[24px] bg-[#1E2428]/90 backdrop-blur-md text-white flex flex-col items-center justify-center shadow-2xl pointer-events-none transition-all duration-300 opacity-0 scale-90">
