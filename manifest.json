@@ -1,15 +1,16 @@
 {
-  "name": "MoDay v1.0",
+  "name": "MoDay",
   "short_name": "MoDay",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#F8F7F5",
-  "theme_color": "#D67262",
+  "background_color": "#FAF7F2",
+  "theme_color": "#FAF7F2",
   "icons": [
     {
-      "src": "墨鏡鼴鼠活力健身秀.png",
-      "sizes": "192x192",
-      "type": "image/png"
+      "src": "./icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
