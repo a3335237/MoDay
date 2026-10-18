@@ -2305,15 +2305,29 @@ if ($id('cfg-start-date'))$id('cfg-start-date').value = displayDate;
         let curHeight = p.height || 160;
         body.innerHTML = `
           <div class="space-y-4 py-2 select-none">
-            <div class="relative h-44 bg-[#F8F7F5] rounded-2xl overflow-hidden flex flex-col items-center justify-center border border-slate-100 shadow-inner">
-              <div class="absolute inset-x-3 top-1/2 -translate-y-1/2 h-11 bg-white rounded-xl pointer-events-none z-0 shadow-sm border border-[#EBE5E0]"></div>
-              <div id="height-wheel-container" class="w-full h-full overflow-y-scroll overflow-x-hidden touch-pan-y snap-y snap-mandatory hide-scrollbar relative z-10 py-16 text-center space-y-4 cursor-pointer" onscroll="handleHeightScroll(this)">
-                ${Array.from({length: 401}, (_, i) => {
-                  const val = parseFloat((140 + i * 0.1).toFixed(1));
-                  return `<div data-val="${val}" class="h-10 flex items-center justify-center snap-center font-bold text-slate-400 text-sm transition-all duration-150">${val} cm</div>`;
-                }).join('')}
-              </div>
-            </div>
+            <!-- 💡 1. 加上一個可以直接點擊輸入的數字欄位 -->
+      <div class="bg-white px-4 py-3 rounded-2xl card-shadow border border-slate-100 flex items-center justify-between">
+        <span class="text-sm font-bold text-slate-700">直接輸入身高</span>
+        <div class="flex items-baseline gap-1">
+          <input type="number" step="0.1" id="height-direct-input" value="${curHeight}" 
+       oninput="syncHeightFromInput(this.value)" 
+       class="w-24 text-right text-xl font-black text-slate-900 border-b border-slate-200 focus:border-[#D67262] outline-none bg-transparent">
+          <span class="text-xs text-slate-400 font-bold">cm</span>
+        </div>
+      </div>
+      <div class="relative h-44 bg-[#F8F7F5] rounded-2xl overflow-hidden flex flex-col items-center justify-center border border-slate-100 shadow-inner">
+        <div class="absolute inset-x-3 top-1/2 -translate-y-1/2 h-11 bg-white rounded-xl pointer-events-none z-0 shadow-sm border border-[#EBE5E0]"></div>
+        <div id="height-wheel-container" 
+             ontouchstart="event.stopPropagation()" 
+             ontouchmove="event.stopPropagation()"
+             class="w-full h-full overflow-y-scroll overflow-x-hidden touch-pan-y snap-y snap-mandatory hide-scrollbar relative z-10 py-16 text-center space-y-4 cursor-pointer" 
+             onscroll="handleHeightScroll(this)">
+          ${Array.from({length: 401}, (_, i) => {
+            const val = parseFloat((140 + i * 0.1).toFixed(1));
+            return `<div data-val="${val}" class="h-10 flex items-center justify-center snap-center font-bold text-slate-400 text-sm transition-all duration-150">${val} cm</div>`;
+          }).join('')}
+        </div>
+      </div>
             <input type="hidden" id="simple-set-input" value="${curHeight}">
           </div>`;
         setTimeout(() => {
@@ -2401,13 +2415,55 @@ if ($id('cfg-start-date'))$id('cfg-start-date').value = displayDate;
     }
 
     function openSimpleSettingFieldOriginalStartWeight() {
-      currentSimpleSettingField = 'startWeight';
-      const p = window.appState.profile || {}, body = $id('setting-item-modal-body');
-      if (!body) return;
-      $txt('setting-item-modal-title', '修改起始體重');
-      body.innerHTML = `<div class="bg-white px-4 py-3.5 rounded-2xl card-shadow border border-slate-100 flex items-center justify-between"><span class="text-sm font-bold text-slate-700">起始體重</span><div class="flex items-baseline gap-1.5"><input type="number" step="0.1" id="simple-set-input" value="${p.startWeight || 0}" class="w-28 text-right text-lg font-black text-slate-800 border-b border-slate-200 focus:border-[#D67262] outline-none bg-transparent"><span class="text-xs text-slate-400">kg</span></div></div>`;
-      openModal('setting-item-modal');
+  currentSimpleSettingField = 'startWeight';
+  const p = window.appState.profile || {}, body = $id('setting-item-modal-body');
+  if (!body) return;
+  
+  $txt('setting-item-modal-title', '修改起始體重');
+  let curWeight = p.startWeight || 60;
+
+  body.innerHTML = `
+    <div class="space-y-4 py-2 select-none">
+      <!-- 上方直接輸入體重的欄位 -->
+      <div class="bg-white px-4 py-3 rounded-2xl card-shadow border border-slate-100 flex items-center justify-between">
+        <span class="text-sm font-bold text-slate-700">直接輸入起始體重</span>
+        <div class="flex items-baseline gap-1">
+          <input type="number" step="0.1" id="weight-direct-input" value="${curWeight}" 
+                 oninput="syncWeightFromInput(this.value)" 
+                 class="w-24 text-right text-xl font-black text-slate-900 border-b border-slate-200 focus:border-[#D67262] outline-none bg-transparent">
+          <span class="text-xs text-slate-400 font-bold">kg</span>
+        </div>
+      </div>
+
+      <!-- 下方滾輪選擇器區域 -->
+      <div class="relative h-44 bg-[#F8F7F5] rounded-2xl overflow-hidden flex flex-col items-center justify-center border border-slate-100 shadow-inner">
+        <div class="absolute inset-x-3 top-1/2 -translate-y-1/2 h-11 bg-white rounded-xl pointer-events-none z-0 shadow-sm border border-[#EBE5E0]"></div>
+        <div id="weight-wheel-container" 
+             ontouchstart="event.stopPropagation()" 
+             ontouchmove="event.stopPropagation()"
+             class="w-full h-full overflow-y-scroll overflow-x-hidden touch-pan-y snap-y snap-mandatory hide-scrollbar relative z-10 py-16 text-center space-y-4 cursor-pointer" 
+             onscroll="handleWeightScroll(this)">
+          ${Array.from({length: 1201}, (_, i) => {
+            const val = parseFloat((30 + i * 0.1).toFixed(1));
+            return `<div data-val="${val}" class="h-10 flex items-center justify-center snap-center font-bold text-slate-400 text-sm transition-all duration-150">${val} kg</div>`;
+          }).join('')}
+        </div>
+      </div>
+      <input type="hidden" id="simple-set-input" value="${curWeight}">
+    </div>`;
+
+  openModal('setting-item-modal');
+
+  setTimeout(() => {
+    const container = document.getElementById('weight-wheel-container');
+    if (container) {
+      const targetEl = container.querySelector(`[data-val="${curWeight}"]`);
+      if (targetEl) {
+        container.scrollTop = targetEl.offsetTop - (container.clientHeight / 2) + (targetEl.clientHeight / 2);
+      }
     }
+  }, 50);
+}
 
     let heightScrollTimer = null;
     function handleHeightScroll(el) {
@@ -4723,6 +4779,68 @@ document.addEventListener('keydown', (e) => {
     });
   }
 });
+function syncHeightFromInput(valStr) {
+  const val = parseFloat(valStr);
+  if (isNaN(val)) return;
+  
+  // 更新隱藏的送出欄位
+  const hiddenInp = document.getElementById('simple-set-input');
+  if (hiddenInp) hiddenInp.value = val;
+
+  // 讓滾輪自動捲動到該數值的位置
+  const container = document.getElementById('height-wheel-container');
+  if (container) {
+    const targetEl = container.querySelector(`[data-val="${val}"]`);
+    if (targetEl) {
+      container.scrollTo({
+        top: targetEl.offsetTop - (container.clientHeight / 2) + (targetEl.clientHeight / 2),
+        behavior: 'smooth'
+      });
+    }
+  }
+}
+function syncWeightFromInput(valStr) {
+  const val = parseFloat(valStr);
+  if (isNaN(val)) return;
+  
+  // 更新隱藏的送出欄位
+  const hiddenInp = document.getElementById('simple-set-input');
+  if (hiddenInp) hiddenInp.value = val;
+
+  // 讓體重滾輪自動捲動到該數值的位置
+  const container = document.getElementById('weight-wheel-container');
+  if (container) {
+    const targetEl = container.querySelector(`[data-val="${val}"]`);
+    if (targetEl) {
+      container.scrollTo({
+        top: targetEl.offsetTop - (container.clientHeight / 2) + (targetEl.clientHeight / 2),
+        behavior: 'smooth'
+      });
+    }
+  }
+}
+
+let weightScrollTimer = null;
+function handleWeightScroll(el) {
+  if (weightScrollTimer) clearTimeout(weightScrollTimer);
+  weightScrollTimer = setTimeout(() => {
+    const children = el.children, centerPos = el.scrollTop + el.clientHeight / 2;
+    let closest = null, minDist = Infinity;
+    for (let child of children) {
+      const dist = Math.abs((child.offsetTop + child.clientHeight / 2) - centerPos);
+      if (dist < minDist) { minDist = dist; closest = child; }
+    }
+    if (closest) {
+      Array.from(children).forEach(c => c.className = "h-10 flex items-center justify-center snap-center font-bold text-slate-400 text-sm transition-all duration-150");
+      closest.className = "h-10 flex items-center justify-center snap-center font-black text-slate-800 text-2xl transition-all duration-150 scale-105";
+      const val = closest.getAttribute('data-val'), inp = document.getElementById('simple-set-input');
+      const directInp = document.getElementById('weight-direct-input');
+      if (inp && val) inp.value = val;
+      // 當滾輪滾動時，上方直接輸入框的數值也會跟著同步更新！
+      if (directInp && val) directInp.value = val;
+    }
+  }, 50);
+}
   </script>
 </body>
 </html>
